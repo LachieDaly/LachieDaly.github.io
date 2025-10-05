@@ -1,1 +1,313 @@
-Olivia is stinky!
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Olivia is Stinky!</title>
+
+  <!-- Modern, snazzy styles -->
+  <style>
+    :root{
+      --bg1: #0f1724;
+      --bg2: #1b2330;
+      --accent: #7c5cff;
+      --accent-2: #00d4ff;
+      --glass: rgba(255,255,255,0.06);
+      --glass-2: rgba(255,255,255,0.03);
+      --muted: rgba(255,255,255,0.65);
+      --radius: 18px;
+      --maxw: 960px;
+      --shadow: 0 8px 30px rgba(2,6,23,0.7);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    html,body{
+      height:100%;
+      margin:0;
+      background: linear-gradient(180deg,var(--bg1) 0%, var(--bg2) 60%);
+      color: #fff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    .wrap{
+      min-height:100%;
+      display:grid;
+      place-items:center;
+      padding:48px 20px;
+      box-sizing:border-box;
+    }
+
+    .card{
+      width:100%;
+      max-width:var(--maxw);
+      background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border-radius:var(--radius);
+      padding:36px;
+      box-shadow: var(--shadow);
+      display:flex;
+      gap:28px;
+      align-items:center;
+      backdrop-filter: blur(8px) saturate(120%);
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .left {
+      flex:1 1 360px;
+      min-width:220px;
+    }
+
+    .badge{
+      display:inline-grid;
+      grid-auto-flow:column;
+      gap:10px;
+      align-items:center;
+      margin-bottom:14px;
+    }
+
+    .badge .dot{
+      width:12px;height:12px;border-radius:50%;
+      background: linear-gradient(180deg,var(--accent),var(--accent-2));
+      box-shadow:0 4px 18px rgba(124,92,255,0.35), 0 1px 0 rgba(255,255,255,0.04) inset;
+    }
+
+    h1{
+      margin:0 0 6px 0;
+      font-size: clamp(28px, 4.2vw, 48px);
+      line-height:1.02;
+      letter-spacing: -0.02em;
+      color: white;
+      text-shadow: 0 6px 30px rgba(2,6,23,0.6);
+    }
+
+    .sub{
+      margin:0 0 18px 0;
+      color:var(--muted);
+      font-size:15px;
+    }
+
+    .stinky-pill{
+      display:inline-block;
+      padding:10px 16px;
+      border-radius:999px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.03);
+      font-weight:600;
+      color: #fff;
+      box-shadow: 0 6px 22px rgba(2,6,23,0.45);
+      transform-origin: left center;
+      will-change: transform, opacity;
+      animation: float 3000ms ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) rotate(-1deg); }
+      50% { transform: translateY(-6px) rotate(1deg); }
+      100% { transform: translateY(0) rotate(-1deg); }
+    }
+
+    .right {
+      width:260px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+    }
+
+    .emoji-circle{
+      width:140px;height:140px;border-radius:50%;
+      display:grid;place-items:center;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.04);
+      box-shadow: 0 16px 40px rgba(3,7,20,0.6);
+      font-size:64px;
+    }
+
+    /* decorative flair */
+    .sparkles{
+      position:absolute;
+      inset: -14px -14px auto auto;
+      width:200px;height:200px;
+      pointer-events:none;
+      opacity:0.9;
+    }
+
+    .actions{
+      margin-top:18px;
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+
+    .btn{
+      padding:10px 14px;
+      border-radius:12px;
+      border: none;
+      cursor:pointer;
+      font-weight:600;
+      background: linear-gradient(90deg,var(--accent),var(--accent-2));
+      color:#061224;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+    }
+
+    .btn.ghost{
+      background:transparent;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.04);
+      box-shadow:none;
+    }
+
+    footer.small{
+      margin-top:14px;
+      color:rgba(255,255,255,0.35);
+      font-size:13px;
+    }
+
+    /* confetti pieces */
+    .confetti{
+      position:fixed;
+      left:0;top:0;width:100%;height:100%;pointer-events:none;overflow:hidden;
+      z-index:9999;
+    }
+
+    /* responsive */
+    @media (max-width:760px){
+      .card{flex-direction:column;align-items:stretch;padding:22px;}
+      .right{width:100%;}
+      .emoji-circle{width:120px;height:120px;font-size:56px;margin:0 auto;}
+    }
+
+    /* respect reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .stinky-pill, .confetti, .sparkles { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <main class="card" role="main" aria-labelledby="page-title">
+      <section class="left" aria-label="Announcement">
+        <div class="badge" aria-hidden="true">
+          <span class="dot" aria-hidden="true"></span>
+          <strong style="font-size:13px">Breaking News</strong>
+        </div>
+
+        <h1 id="page-title">Olivia is Stinky!</h1>
+
+        <p class="sub">A totally official announcement, crafted with care and a pinch of mischief. This page is playful in tone — meant for fun.</p>
+
+        <div class="stinky-pill" id="stinky-pill" aria-live="polite">💨 Certified Stinky</div>
+
+        <div class="actions" role="group" aria-label="Actions">
+          <button class="btn" id="celebrateBtn" title="Celebrate the announcement">Celebrate 🎉</button>
+          <button class="btn ghost" id="toggleBtn" title="Toggle the message">Toggle message</button>
+        </div>
+
+        <p class="small" style="margin-top:12px;">Tip: press <kbd>Space</kbd> or click "Celebrate" for confetti (respects reduced-motion).</p>
+      </section>
+
+      <aside class="right" aria-label="Visual">
+        <div class="emoji-circle" aria-hidden="true">🫣</div>
+        <svg class="sparkles" viewBox="0 0 120 120" aria-hidden="true">
+          <defs>
+            <linearGradient id="g" x1="0" x2="1">
+              <stop offset="0" stop-color="rgba(124,92,255,0.75)"/>
+              <stop offset="1" stop-color="rgba(0,212,255,0.75)"/>
+            </linearGradient>
+          </defs>
+          <circle cx="20" cy="20" r="2.7" fill="url(#g)"/>
+          <circle cx="48" cy="24" r="1.9" fill="url(#g)"/>
+          <circle cx="90" cy="18" r="1.6" fill="url(#g)"/>
+          <circle cx="110" cy="42" r="2.2" fill="url(#g)"/>
+          <circle cx="72" cy="84" r="1.8" fill="url(#g)"/>
+        </svg>
+      </aside>
+    </main>
+  </div>
+
+  <!-- confetti container -->
+  <div class="confetti" id="confetti" aria-hidden="true"></div>
+
+  <!-- Small, dependency-free JS for interactions and confetti -->
+  <script>
+    (function(){
+      const celebrateBtn = document.getElementById('celebrateBtn');
+      const toggleBtn = document.getElementById('toggleBtn');
+      const title = document.getElementById('page-title');
+      const pill = document.getElementById('stinky-pill');
+      const confettiRoot = document.getElementById('confetti');
+
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Basic confetti impl (lightweight)
+      function burstConfetti() {
+        if (prefersReduced) return;
+        const count = 36;
+        const w = window.innerWidth, h = window.innerHeight;
+        const colors = ['#7c5cff','#00d4ff','#ff6b6b','#ffd166','#7ce3a1'];
+        for (let i=0;i<count;i++){
+          const el = document.createElement('div');
+          el.style.position = 'absolute';
+          el.style.left = (w/2 + (Math.random()-0.5)*200) + 'px';
+          el.style.top = (h/2 + (Math.random()-0.5)*120) + 'px';
+          el.style.width = (6 + Math.random()*8) + 'px';
+          el.style.height = (8 + Math.random()*10) + 'px';
+          el.style.background = colors[Math.floor(Math.random()*colors.length)];
+          el.style.opacity = Math.random()*0.95 + 0.3;
+          el.style.transform = 'rotate('+ (Math.random()*360) +'deg)';
+          el.style.borderRadius = (Math.random()>0.5? '2px':'50%');
+          el.style.pointerEvents = 'none';
+          const duration = 1000 + Math.random()*1100;
+          el.style.transition = `transform ${duration}ms cubic-bezier(.2,.8,.2,1), top ${duration}ms ease-in, left ${duration}ms ease-in, opacity ${duration}ms linear`;
+          confettiRoot.appendChild(el);
+
+          // force layout then animate
+          requestAnimationFrame(()=>{
+            el.style.top = (Math.random()*h*1.1 - h*0.1) + 'px';
+            el.style.left = (Math.random()*w) + 'px';
+            el.style.transform = `translateY(${300 + Math.random()*600}px) rotate(${Math.random()*720}deg)`;
+            el.style.opacity = '0';
+          });
+
+          // cleanup
+          setTimeout(()=> el.remove(), duration + 100);
+        }
+      }
+
+      celebrateBtn.addEventListener('click', () => {
+        burstConfetti();
+        celebrateBtn.animate([{ transform:'scale(1)' }, { transform:'scale(1.06)' }, { transform:'scale(1)'}], { duration:280 });
+      });
+
+      // Spacebar triggers celebration (but not when typing)
+      window.addEventListener('keydown', (e)=>{
+        const active = document.activeElement;
+        if (e.code === 'Space' && active && (active.tagName !== 'INPUT' && active.tagName !== 'TEXTAREA' && !active.isContentEditable)) {
+          e.preventDefault();
+          burstConfetti();
+        }
+      });
+
+      // Toggle the headline text playful -> neutral
+      let flipped = false;
+      toggleBtn.addEventListener('click', ()=>{
+        flipped = !flipped;
+        if (flipped){
+          title.textContent = 'Olivia is Fabulous!';
+          pill.textContent = '✨ Fresh & Fabulous';
+          toggleBtn.textContent = 'Revert';
+        } else {
+          title.textContent = 'Olivia is Stinky!';
+          pill.textContent = '💨 Certified Stinky';
+          toggleBtn.textContent = 'Toggle message';
+        }
+      });
+
+      // Small accessibility: announce initial content
+      if ('ariaLive' in document.createElement('div')) {
+        // Already have aria-live on pill; leave as is.
+      }
+    })();
+  </script>
+</body>
+</html>
