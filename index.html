@@ -84,6 +84,12 @@
       font-size: 0.9em;
       opacity: 0.7;
     }
+
+    .audio-warning {
+      font-size: 0.8em;
+      opacity: 0.6;
+      margin-top: 10px;
+    }
   </style>
 </head>
 
@@ -121,9 +127,6 @@
 
   <div class="section">
     <h2>🐎 Umamusume Derby Zone 🐎</h2>
-    <p>
-      You are now legally allowed to care deeply about:
-    </p>
     <div class="horse">
       🐴✨ ANIME HORSE GIRLS ✨🐴<br>
       RUNNING VERY FAST<br>
@@ -140,20 +143,66 @@
     <p>
       Oliver, you are 27.<br>
       You are powerful.<br>
-      You are valid.<br>
-      And you are still extremely cringe.<br>
-      Edit: (i told chatgpt to make the website cringe, not call you cringe) -LD
+      You are valid.
     </p>
 
     <button onclick="alert('🎉 HAPPY BIRTHDAY OLIVER 🎉\\n\\nYou are now canonically old.')">
       CLICK FOR BIRTHDAY MAGIC
     </button>
+
+    <div class="audio-warning">
+      🔊 If music didn’t start automatically, click anywhere to begin the anime opening
+    </div>
   </div>
 
   <footer>
-    This website was handcrafted with love, poor taste, and zero dignity.<br>
+    This website contains an original anime opening composed entirely of bad decisions.<br>
     Happy Birthday Oliver 🎈
   </footer>
+
+  <script>
+    let audioStarted = false;
+
+    function playAnimeOpening() {
+      if (audioStarted) return;
+      audioStarted = true;
+
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      let time = ctx.currentTime;
+
+      const notes = [
+        440, 494, 523, 587, 659, 587, 523, 494,
+        440, 494, 523, 659, 784, 659, 587, 523
+      ];
+
+      notes.forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+
+        osc.type = "sawtooth";
+        osc.frequency.value = freq;
+
+        gain.gain.setValueAtTime(0.15, time);
+        gain.gain.exponentialRampToValueAtTime(0.001, time + 0.3);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start(time);
+        osc.stop(time + 0.3);
+
+        time += 0.3;
+      });
+    }
+
+    // Attempt autoplay
+    window.addEventListener("load", () => {
+      playAnimeOpening();
+    });
+
+    // Fallback on first interaction
+    document.body.addEventListener("click", playAnimeOpening, { once: true });
+  </script>
 
 </body>
 </html>
