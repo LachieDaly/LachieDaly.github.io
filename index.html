@@ -15,7 +15,7 @@ body{
   transition:.4s;
 }
 
-/* Animated neon glow */
+/* Neon animated background */
 body::before{
   content:"";
   position:fixed;
@@ -100,14 +100,14 @@ button:hover{
   padding:20px;
   border-radius:10px;
   box-shadow:0 0 30px rgba(0,0,0,.6);
-  width:400px;
+  width:420px;
   text-align:left;
   font-family:monospace;
 }
 
 /* Gym edit filter */
 .gym{
-  filter:contrast(140%) saturate(160%) brightness(110%);
+  filter:contrast(150%) saturate(170%) brightness(115%);
 }
 
 footer{margin:60px 0;opacity:.7;}
@@ -118,20 +118,42 @@ footer{margin:60px 0;opacity:.7;}
 <h1>🎂 MODI BIRTHDAY EXPERIENCE 🎂</h1>
 
 <div class="section">
-<h2>🎯 Valorant Voice Comms</h2>
+<h2>🎮 Blue Prince Streaming Energy</h2>
 <div class="big">
-Expected Callout:<br>
+You playing Blue Prince:<br>
+Modi in the background: <strong>"Stream. STREAM. Bro why are you not streaming this. This is content. STREAM."</strong><br><br>
+Also him during cutscene where two characters kiss:<br>
+<strong>"That could be us. I mean— not like that. But like— you know. Cinematically."</strong>
+</div>
+</div>
+
+<div class="section">
+<h2>🎯 Valorant Comms (Unintelligible Edition)</h2>
+<div class="big">
 <strong>
-"Bro- bro- wait- hold- no like- he's there- no OTHER there- bro my crosshair was literally- nah you saw that-"
+"Bro- nah- wait- he's like- hold- no OTHER left- no MY left- I pinged it- I DID- my mouse- bro the DPI- nah- you saw that- chat saw that-"
 </strong>
 </div>
 </div>
 
 <div class="section">
-<h2>🍗 Lalaland Supremacy</h2>
+<h2>🍗 Lalaland Sauce Matrix</h2>
 <div class="big">
-Sriracha Mayo • Wasabi Mayo • Honey Soy • Sweet Chilli • Volcano Chilli • Original • Garlic • BBQ<br><br>
-Snow Cheese: spiritually rejected.
+Sriracha Mayo • Wasabi Mayo • Honey Soy • Sweet Chilli • Volcano Chilli • Original<br><br>
+Snow Cheese: publicly denounced.<br>
+BBQ & Garlic: never existed. Mandela effect.
+</div>
+</div>
+
+<div class="section">
+<h2>👀 Totally Straight Commentary</h2>
+<div class="big">
+Gym bro walks past:<br>
+<strong>"Bro's actually built. Respectfully. Respectfully."</strong><br><br>
+Watching romance scene:<br>
+<strong>"That could be us. If we were like… in a movie. For tax purposes."</strong><br><br>
+Hugs you slightly too long:<br>
+<strong>"It's just brotherhood."</strong>
 </div>
 </div>
 
@@ -146,21 +168,12 @@ Bathroom Status: <span id="bathroom">Checking...</span>
 </div>
 
 <div class="section">
-<h2>🚗 <span id="raptorWord">RAPTOR</span> Mode</h2>
+<h2>🚆 Corporate Rail Overlord</h2>
 <div class="big">
-Expected Statement:<br>
-<strong>"Nah listen- it just grips different- like you feel it? You feel that? That's torque."</strong>
-</div>
-<button onclick="revRaptor()">Rev Engine</button>
-</div>
-
-<div class="section">
-<h2>🚆 Corporate Excel Mogul</h2>
-<div class="big">
-By day: sourcing elite train parts.<br>
-By night: sourcing elite sauce combinations.<br><br>
-Expected Office Quote:<br>
-<strong>"Yeah I’ll circle back once procurement loops in logistics."</strong>
+By day: sourcing precision train components.<br>
+By night: sourcing precision sauce ratios.<br><br>
+Expected Meeting Quote:<br>
+<strong>"Yeah procurement just needs to align with rail compliance deliverables— synergy— circle back."</strong>
 </div>
 <button onclick="openExcel()">Open Excel Sheet</button>
 </div>
@@ -175,22 +188,26 @@ Activate dramatic Instagram Reels lighting.
 </div>
 
 <footer>
-Instagram Reels Energy. Corporate Rail Dominance. Bathroom Delays Ongoing.<br>
+Instagram Reels Energy. Rail Logistics Dominance. Bathroom Delays Active.<br>
 HAPPY BIRTHDAY KING 👑
 </footer>
 
 <div id="excelPopup">
 <strong>TRAIN_PARTS_MASTER.xlsx</strong><br><br>
-Bolt_Assembly_A7 | Ordered ✔<br>
-Brake_Module_X3 | Pending<br>
+Axle_Coupling_A9 | Ordered ✔<br>
+Brake_Assembly_X2 | Pending<br>
 Hydraulic_Link_22B | Backorder<br>
-Sauce_Inventory.xlsx | Confidential<br><br>
+Sauce_Optimization_v4.xlsx | Confidential<br><br>
+Notes:<br>
+• "Remember to stream Blue Prince"<br>
+• "Snow cheese still mid"<br>
+• "That could be us???"<br><br>
 <button onclick="closeExcel()">Close</button>
 </div>
 
 <script>
 /* Floating chickens */
-for(let i=0;i<12;i++){
+for(let i=0;i<14;i++){
  let c=document.createElement("div");
  c.className="chicken";
  c.style.left=Math.random()*100+"vw";
@@ -215,19 +232,13 @@ function manualDelay(){
 function checkBathroom(){
  const statuses=[
  "On toilet. Reels open.",
- "Still scrolling gym edits.",
- "Said 2 mins. It’s been 9.",
- "Mission critical phase.",
- "Almost done. Probably not."
+ "Said 2 mins. It’s been 14.",
+ "Watching gym edits mid-mission.",
+ "Critical scroll phase.",
+ "Still in there. No updates."
  ];
  document.getElementById("bathroom").innerText=
  statuses[Math.floor(Math.random()*statuses.length)];
-}
-
-/* Raptor shake */
-function revRaptor(){
- document.body.classList.add("shake");
- setTimeout(()=>document.body.classList.remove("shake"),400);
 }
 
 /* Excel popup */
@@ -250,19 +261,17 @@ function startBeat(){
  beatStarted=true;
  const ctx=new (window.AudioContext||window.webkitAudioContext)();
  ctx.resume();
- let t=ctx.currentTime;
-
  setInterval(()=>{
    const kick=ctx.createOscillator();
    const gain=ctx.createGain();
    kick.type="sine";
-   kick.frequency.setValueAtTime(120,t);
-   gain.gain.setValueAtTime(.6,t);
-   gain.gain.exponentialRampToValueAtTime(.001,t+.3);
+   kick.frequency.setValueAtTime(110,ctx.currentTime);
+   gain.gain.setValueAtTime(.6,ctx.currentTime);
+   gain.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.3);
    kick.connect(gain);
    gain.connect(ctx.destination);
-   kick.start(t);
-   kick.stop(t+.3);
+   kick.start();
+   kick.stop(ctx.currentTime+.3);
  },600);
 }
 </script>
