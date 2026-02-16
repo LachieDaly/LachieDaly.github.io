@@ -2,217 +2,269 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>🚨 OFFICIAL MODI BIRTHDAY INVESTIGATION 🚨</title>
+<title>🚨 MODI CINEMATIC EXPERIENCE 🚨</title>
 
 <style>
-  body {
-    margin:0;
-    font-family: Impact, Arial Black, Arial, sans-serif;
-    background:black;
-    color:white;
-    text-align:center;
-    overflow-x:hidden;
-  }
+body{
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:#0b0b12;
+  color:white;
+  text-align:center;
+  overflow-x:hidden;
+  transition:.4s;
+}
 
-  body::before {
-    content:"";
-    position:fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, purple);
-    background-size:400% 400%;
-    animation: rave 6s infinite linear;
-    opacity:0.25;
-    z-index:-1;
-  }
+/* Animated neon glow */
+body::before{
+  content:"";
+  position:fixed;
+  width:100%;height:100%;
+  background:linear-gradient(45deg,#ff00cc,#00ffff,#ff9900,#00ff88);
+  background-size:400% 400%;
+  animation:bgmove 15s linear infinite;
+  opacity:.12;
+  z-index:-1;
+}
+@keyframes bgmove{
+  0%{background-position:0% 50%;}
+  100%{background-position:100% 50%;}
+}
 
-  @keyframes rave {
-    0% { background-position:0% 50%; }
-    100% { background-position:100% 50%; }
-  }
+h1{
+  margin-top:40px;
+  font-size:3.5em;
+  color:#00ffff;
+  text-shadow:0 0 20px #00ffff;
+}
 
-  h1 {
-    font-size:4em;
-    margin-top:40px;
-    color:#00ffff;
-    text-shadow: 4px 4px 12px hotpink;
-    animation: wobble 0.6s infinite alternate;
-  }
+.section{
+  max-width:900px;
+  margin:40px auto;
+  padding:30px;
+  background:#151522;
+  border-radius:18px;
+  box-shadow:0 0 25px rgba(0,255,255,.2);
+}
 
-  @keyframes wobble {
-    from { transform: rotate(-1deg); }
-    to { transform: rotate(1deg); }
-  }
+h2{color:#ffcc00;}
 
-  h2 {
-    font-size:2em;
-    color:#ffd700;
-  }
+.big{line-height:1.8em;font-size:1.1em;}
 
-  .section {
-    max-width:850px;
-    margin:50px auto;
-    padding:35px;
-    border:6px solid white;
-    border-radius:25px;
-    background:rgba(0,0,0,0.75);
-    box-shadow:0 0 30px hotpink;
-  }
+button{
+  margin:10px;
+  padding:12px 22px;
+  border:none;
+  border-radius:8px;
+  font-size:1em;
+  cursor:pointer;
+  background:#00ffcc;
+  transition:.2s;
+}
+button:hover{
+  background:#ff00cc;
+  color:white;
+  transform:scale(1.1);
+}
 
-  .big {
-    font-size:1.4em;
-    line-height:1.8em;
-  }
+.shake{
+  animation:shake .4s;
+}
+@keyframes shake{
+  0%{transform:translateX(0)}
+  25%{transform:translateX(-8px)}
+  50%{transform:translateX(8px)}
+  75%{transform:translateX(-5px)}
+  100%{transform:translateX(0)}
+}
 
-  .insane {
-    font-size:1.6em;
-    color:#ff4d4d;
-    animation: pulse 1s infinite;
-  }
+/* Floating chicken */
+.chicken{
+  position:fixed;
+  font-size:28px;
+  animation:float 12s linear infinite;
+}
+@keyframes float{
+  from{transform:translateY(110vh);}
+  to{transform:translateY(-10vh);}
+}
 
-  @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.07); }
-    100% { transform: scale(1); }
-  }
+/* Excel popup */
+#excelPopup{
+  display:none;
+  position:fixed;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  background:white;
+  color:black;
+  padding:20px;
+  border-radius:10px;
+  box-shadow:0 0 30px rgba(0,0,0,.6);
+  width:400px;
+  text-align:left;
+  font-family:monospace;
+}
 
-  footer {
-    margin:70px 0;
-    font-size:1.1em;
-    opacity:0.85;
-  }
+/* Gym edit filter */
+.gym{
+  filter:contrast(140%) saturate(160%) brightness(110%);
+}
+
+footer{margin:60px 0;opacity:.7;}
 </style>
 </head>
-
 <body>
 
-<h1>🎂 HAPPY BIRTHDAY MODI 🎂</h1>
-<h2>Mohamed Ibrahim — The Raptor Operator</h2>
+<h1>🎂 MODI BIRTHDAY EXPERIENCE 🎂</h1>
 
 <div class="section">
-  <h2>🎯 VALORANT PERFORMANCE REVIEW</h2>
-  <div class="big">
-    Crosshair Placement: Philosophical<br>
-    Spray Control: Experimental Art<br>
-    Flash Awareness: Optional<br><br>
-
-    CLAIM: Modi once got 3 kills in a round<br>
-    and has been referencing it for 14 months straight.
-  </div>
+<h2>🎯 Valorant Voice Comms</h2>
+<div class="big">
+Expected Callout:<br>
+<strong>
+"Bro- bro- wait- hold- no like- he's there- no OTHER there- bro my crosshair was literally- nah you saw that-"
+</strong>
+</div>
 </div>
 
 <div class="section">
-  <h2>⏰ WHY IS HE LATE?</h2>
-  <div class="big">
-    Event Time: 7:00pm<br>
-    Group Chat at 7:04pm: “5 mins away bro”<br>
-    Reality: <br><br>
-
-    <span class="insane">
-      He is on the toilet.<br>
-      Phone in one hand.<br>
-      TikTok open.<br>
-      Fighting for his life.
-    </span><br><br>
-
-    Arrival ETA increases with each scroll.
-  </div>
+<h2>🍗 Lalaland Supremacy</h2>
+<div class="big">
+Sriracha Mayo • Wasabi Mayo • Honey Soy • Sweet Chilli • Volcano Chilli • Original • Garlic • BBQ<br><br>
+Snow Cheese: spiritually rejected.
+</div>
 </div>
 
 <div class="section">
-  <h2>🍗 LALALAND FRIED CHICKEN LORE</h2>
-  <div class="big">
-    Favourite Flavours: All of them.<br>
-    Garlic? Yes.<br>
-    Spicy? Yes.<br>
-    BBQ? Yes.<br>
-    Mystery Sauce? Absolutely.<br><br>
-
-    <span class="insane">
-      Snow Cheese? Never.  
-      That is where he draws the line.
-    </span><br><br>
-
-    Scientists confirm 18% of his body mass is now crispy coating.
-  </div>
+<h2>⏰ Live ETA System</h2>
+<div class="big">
+ETA: <span id="eta">5</span> mins<br>
+Bathroom Status: <span id="bathroom">Checking...</span>
+</div>
+<button onclick="manualDelay()">Delay Again</button>
+<button onclick="checkBathroom()">Check Bathroom</button>
 </div>
 
 <div class="section">
-  <h2>🚗 FORD RAPTOR PROPAGANDA</h2>
-  <div class="big">
-    Horsepower: Excessive<br>
-    Acceleration: Aggressive<br>
-    Volume: Weaponized<br><br>
-
-    CLAIM: He has said “it handles different bro”  
-    after doing absolutely nothing different.
-  </div>
+<h2>🚗 <span id="raptorWord">RAPTOR</span> Mode</h2>
+<div class="big">
+Expected Statement:<br>
+<strong>"Nah listen- it just grips different- like you feel it? You feel that? That's torque."</strong>
+</div>
+<button onclick="revRaptor()">Rev Engine</button>
 </div>
 
 <div class="section">
-  <h2>🌈 BROTHERHOOD STATEMENT</h2>
-  <div class="big">
-    Straight? Yes.<br>
-    Secure? Extremely.<br>
-    Comfortable? Dangerously.<br><br>
-
-    Famous Line Heard in Public:<br><br>
-
-    <span class="insane">
-      “It ain’t gay to kiss the boys on the lips.”
-    </span><br><br>
-
-    Brotherhood Level: MAXIMUM.
-  </div>
+<h2>🚆 Corporate Excel Mogul</h2>
+<div class="big">
+By day: sourcing elite train parts.<br>
+By night: sourcing elite sauce combinations.<br><br>
+Expected Office Quote:<br>
+<strong>"Yeah I’ll circle back once procurement loops in logistics."</strong>
+</div>
+<button onclick="openExcel()">Open Excel Sheet</button>
 </div>
 
 <div class="section">
-  <h2>📊 FINAL STAT SHEET</h2>
-  <div class="big">
-    Aim: Developing<br>
-    Punctuality: Situational<br>
-    Confidence: Overclocked<br>
-    Raptor Enthusiasm: Unregulated<br>
-    Chicken Loyalty: Fanatical<br><br>
-
-    Modi, you are chaotic.<br>
-    You are loud.<br>
-    You are occasionally still in the bathroom.<br><br>
-
-    And we wouldn’t change a thing.
-  </div>
+<h2>💪 Gym Edit Mode</h2>
+<div class="big">
+Activate dramatic Instagram Reels lighting.
+</div>
+<button onclick="toggleGym()">Toggle Gym Edit</button>
+<button onclick="startBeat()">Start Trap Beat</button>
 </div>
 
 <footer>
-  This website was created with aggressive friendship energy.<br>
-  HAPPY BIRTHDAY KING 👑
+Instagram Reels Energy. Corporate Rail Dominance. Bathroom Delays Ongoing.<br>
+HAPPY BIRTHDAY KING 👑
 </footer>
 
+<div id="excelPopup">
+<strong>TRAIN_PARTS_MASTER.xlsx</strong><br><br>
+Bolt_Assembly_A7 | Ordered ✔<br>
+Brake_Module_X3 | Pending<br>
+Hydraulic_Link_22B | Backorder<br>
+Sauce_Inventory.xlsx | Confidential<br><br>
+<button onclick="closeExcel()">Close</button>
+</div>
+
 <script>
-  // Automatic chaotic beep intro
-  const ctx = new (window.AudioContext || window.webkitAudioContext)();
-  let t = ctx.currentTime + 0.5;
+/* Floating chickens */
+for(let i=0;i<12;i++){
+ let c=document.createElement("div");
+ c.className="chicken";
+ c.style.left=Math.random()*100+"vw";
+ c.style.animationDuration=(8+Math.random()*8)+"s";
+ c.innerHTML="🍗";
+ document.body.appendChild(c);
+}
 
-  const notes = [440, 494, 523, 659, 784, 659, 523, 494, 440];
+/* ETA auto increase */
+let eta=5;
+setInterval(()=>{
+ eta+=1;
+ document.getElementById("eta").innerText=eta;
+},4000);
 
-  notes.forEach(freq => {
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
+function manualDelay(){
+ eta+=5;
+ document.getElementById("eta").innerText=eta;
+}
 
-    osc.type = "sawtooth";
-    osc.frequency.value = freq;
+/* Bathroom tracker */
+function checkBathroom(){
+ const statuses=[
+ "On toilet. Reels open.",
+ "Still scrolling gym edits.",
+ "Said 2 mins. It’s been 9.",
+ "Mission critical phase.",
+ "Almost done. Probably not."
+ ];
+ document.getElementById("bathroom").innerText=
+ statuses[Math.floor(Math.random()*statuses.length)];
+}
 
-    gain.gain.setValueAtTime(0.2, t);
-    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.3);
+/* Raptor shake */
+function revRaptor(){
+ document.body.classList.add("shake");
+ setTimeout(()=>document.body.classList.remove("shake"),400);
+}
 
-    osc.connect(gain);
-    gain.connect(ctx.destination);
+/* Excel popup */
+function openExcel(){
+ document.getElementById("excelPopup").style.display="block";
+}
+function closeExcel(){
+ document.getElementById("excelPopup").style.display="none";
+}
 
-    osc.start(t);
-    osc.stop(t + 0.3);
+/* Gym filter */
+function toggleGym(){
+ document.body.classList.toggle("gym");
+}
 
-    t += 0.3;
-  });
+/* Trap beat */
+let beatStarted=false;
+function startBeat(){
+ if(beatStarted) return;
+ beatStarted=true;
+ const ctx=new (window.AudioContext||window.webkitAudioContext)();
+ ctx.resume();
+ let t=ctx.currentTime;
+
+ setInterval(()=>{
+   const kick=ctx.createOscillator();
+   const gain=ctx.createGain();
+   kick.type="sine";
+   kick.frequency.setValueAtTime(120,t);
+   gain.gain.setValueAtTime(.6,t);
+   gain.gain.exponentialRampToValueAtTime(.001,t+.3);
+   kick.connect(gain);
+   gain.connect(ctx.destination);
+   kick.start(t);
+   kick.stop(t+.3);
+ },600);
+}
 </script>
 
 </body>
