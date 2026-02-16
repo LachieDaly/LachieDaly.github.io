@@ -1,208 +1,212 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>🎉 Happy 27th Birthday Oliver 🎉</title>
-  <style>
-    body {
-      background: linear-gradient(45deg, #ff00cc, #3333ff);
-      font-family: "Comic Sans MS", "Papyrus", cursive;
-      color: white;
-      text-align: center;
-      margin: 0;
-      padding: 0;
-      animation: bgShift 6s infinite alternate;
-    }
+<meta charset="UTF-8">
+<title>🎉 HAPPY BIRTHDAY MODI 🎉</title>
 
-    @keyframes bgShift {
-      0% { filter: hue-rotate(0deg); }
-      100% { filter: hue-rotate(360deg); }
-    }
+<style>
+  body {
+    margin:0;
+    font-family: "Comic Sans MS", cursive;
+    text-align:center;
+    color:white;
+    background: linear-gradient(45deg, red, purple, cyan);
+    animation: hueSpin 8s infinite linear;
+  }
 
-    h1 {
-      font-size: 4em;
-      text-shadow: 4px 4px 0 black;
-      margin-top: 40px;
-      animation: wobble 1s infinite;
-    }
+  @keyframes hueSpin {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+  }
 
-    @keyframes wobble {
-      0% { transform: rotate(-2deg); }
-      50% { transform: rotate(2deg); }
-      100% { transform: rotate(-2deg); }
-    }
+  h1 {
+    font-size:4em;
+    margin-top:30px;
+    text-shadow:4px 4px black;
+    animation: bounce 1s infinite alternate;
+  }
 
-    .section {
-      border: 5px dashed yellow;
-      margin: 40px;
-      padding: 20px;
-      background: rgba(0,0,0,0.4);
-    }
+  @keyframes bounce {
+    from { transform: translateY(0px); }
+    to { transform: translateY(-15px); }
+  }
 
-    .ring {
-      font-size: 1.5em;
-      letter-spacing: 3px;
-      color: gold;
-    }
+  .section {
+    margin:40px;
+    padding:25px;
+    border:6px dashed yellow;
+    background: rgba(0,0,0,0.5);
+  }
 
-    .anime {
-      font-size: 1.3em;
-    }
+  button {
+    font-size:1.5em;
+    padding:15px 25px;
+    background:lime;
+    border:4px solid black;
+    cursor:pointer;
+    margin-top:20px;
+  }
 
-    .horse {
-      font-size: 1.2em;
-      background: pink;
-      color: black;
-      padding: 10px;
-      margin-top: 10px;
-      animation: gallop 0.4s infinite alternate;
-    }
+  button:hover {
+    background:hotpink;
+    transform:scale(1.2);
+  }
 
-    @keyframes gallop {
-      from { transform: translateX(-5px); }
-      to { transform: translateX(5px); }
-    }
+  .late {
+    animation: slideIn 3s infinite alternate;
+  }
 
-    button {
-      font-size: 1.5em;
-      padding: 15px;
-      background: red;
-      color: white;
-      border: 4px solid black;
-      cursor: pointer;
-      margin-top: 20px;
-    }
+  @keyframes slideIn {
+    from { transform: translateX(-30px); }
+    to { transform: translateX(30px); }
+  }
 
-    button:hover {
-      background: lime;
-      color: black;
-      transform: scale(1.2);
-    }
+  .aim {
+    color:red;
+    font-weight:bold;
+    font-size:1.4em;
+  }
 
-    footer {
-      margin-top: 50px;
-      font-size: 0.9em;
-      opacity: 0.7;
-    }
+  .truck {
+    font-size:1.3em;
+    animation: shake 0.2s infinite alternate;
+  }
 
-    .audio-warning {
-      font-size: 0.8em;
-      opacity: 0.6;
-      margin-top: 10px;
-    }
-  </style>
+  @keyframes shake {
+    from { transform: rotate(-1deg); }
+    to { transform: rotate(1deg); }
+  }
+
+  footer {
+    margin-top:50px;
+    opacity:0.7;
+  }
+</style>
 </head>
 
 <body>
 
-  <h1>🎂 HAPPY 27TH BIRTHDAY OLIVER 🎂</h1>
+<h1>🎂 HAPPY BIRTHDAY MODI 🎂</h1>
+<h2>(Mohamed Ibrahim, but only when in trouble)</h2>
 
-  <div class="section">
-    <h2>🧙‍♂️ Lord of the Rings Section 🧙‍♂️</h2>
-    <p class="ring">
-      ONE DOES NOT SIMPLY TURN 27<br>
-      WITHOUT GAINING +5 WISDOM<br>
-      AND -10 LOWER BACK STRENGTH
-    </p>
-    <p>
-      You are now officially older than Frodo was when he left the Shire.
-      Think about that. Let it sink in.
-    </p>
+<button onclick="startMusic()">▶️ START EPIC BIRTHDAY THEME ◀️</button>
+
+<div class="section">
+  <h2>🎯 Valorant Career Review 🎯</h2>
+  <p class="aim">
+    Crosshair Placement: Questionable<br>
+    Spray Control: Emotional<br>
+    Flicks: Sent to Allah for processing<br>
+    Confidence: UNMATCHED
+  </p>
+  <p>
+    Your enemies fear you.<br>
+    Mostly because you might accidentally hit them.
+  </p>
+</div>
+
+<div class="section">
+  <h2>🍗 Lalaland Fried Chicken Devotion 🍗</h2>
+  <p>
+    Scientists confirm your bloodstream is now 14% spicy mayo.
+  </p>
+  <p>
+    Loyalty Level: Diamond Rank<br>
+    Sauce Consumption: Criminal
+  </p>
+</div>
+
+<div class="section">
+  <h2>⏰ Arrival Time Analysis ⏰</h2>
+  <div class="late">
+    Event Starts: 7:00pm<br>
+    Modi ETA: 7:47pm<br>
+    Text at 7:02pm: "5 mins away"
   </div>
+  <p>
+    But we see the growth. We see the effort.<br>
+    Character development arc in progress.
+  </p>
+</div>
 
-  <div class="section">
-    <h2>🍥 Anime Power-Up 🍥</h2>
-    <p class="anime">
-      Congratulations Oliver!<br>
-      You have unlocked:<br>
-      <strong>✨ SEASON 27 ✨</strong>
-    </p>
-    <p class="anime">
-      New abilities include:
-      <br>• Falling asleep during any anime episode
-      <br>• Saying “this arc is mid” with confidence
-      <br>• Rewatching the same 3 shows forever
-    </p>
+<div class="section">
+  <h2>🚗 Ford Raptor Appreciation 🚗</h2>
+  <div class="truck">
+    VROOM VROOM BROTHER<br>
+    SPEED LIMITS ARE SUGGESTIONS
   </div>
+  <p>
+    If horsepower was personality,<br>
+    you’d still be loud.
+  </p>
+</div>
 
-  <div class="section">
-    <h2>🐎 Umamusume Derby Zone 🐎</h2>
-    <div class="horse">
-      🐴✨ ANIME HORSE GIRLS ✨🐴<br>
-      RUNNING VERY FAST<br>
-      FOR NO REASON
-    </div>
-    <p>
-      May your gacha pulls be blessed<br>
-      and your stamina never capped.
-    </p>
-  </div>
+<div class="section">
+  <h2>🌈 Straight But… 🌈</h2>
+  <p>
+    Straight? Yes.<br>
+    Comfortable making fruity jokes with the boys? Also yes.<br>
+    Secure masculinity level: MAXED OUT.
+  </p>
+</div>
 
-  <div class="section">
-    <h2>🎁 Final Message 🎁</h2>
-    <p>
-      Oliver, you are 27.<br>
-      You are powerful.<br>
-      You are valid.
-    </p>
+<div class="section">
+  <h2>🎁 Final Blessing 🎁</h2>
+  <p>
+    Modi, you are fast.<br>
+    You are improving.<br>
+    You are occasionally punctual.<br>
+    And your aim... will get there one day.
+  </p>
 
-    <button onclick="alert('🎉 HAPPY BIRTHDAY OLIVER 🎉\\n\\nYou are now canonically old.')">
-      CLICK FOR BIRTHDAY MAGIC
-    </button>
+  <button onclick="alert('🎉 HAPPY BIRTHDAY MODI 🎉\\n\\nMay your bullets finally connect.')">
+    CLAIM BIRTHDAY BUFF
+  </button>
+</div>
 
-    <div class="audio-warning">
-      🔊 If music didn’t start automatically, click anywhere to begin the anime opening
-    </div>
-  </div>
+<footer>
+  This website was engineered with zero restraint.<br>
+  Happy Birthday King 👑
+</footer>
 
-  <footer>
-    This website contains an original anime opening composed entirely of bad decisions.<br>
-    Happy Birthday Oliver 🎈
-  </footer>
+<script>
+let audioStarted = false;
 
-  <script>
-    let audioStarted = false;
+function startMusic() {
+  if (audioStarted) return;
+  audioStarted = true;
 
-    function playAnimeOpening() {
-      if (audioStarted) return;
-      audioStarted = true;
+  const ctx = new (window.AudioContext || window.webkitAudioContext)();
+  ctx.resume();
 
-      const ctx = new (window.AudioContext || window.webkitAudioContext)();
-      let time = ctx.currentTime;
+  let time = ctx.currentTime;
 
-      const notes = [
-        440, 494, 523, 587, 659, 587, 523, 494,
-        440, 494, 523, 659, 784, 659, 587, 523
-      ];
+  const notes = [
+    440, 440, 494, 523, 494,
+    440, 392, 440, 523, 659,
+    587, 523, 494, 440
+  ];
 
-      notes.forEach((freq, i) => {
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
+  notes.forEach(freq => {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
 
-        osc.type = "sawtooth";
-        osc.frequency.value = freq;
+    osc.type = "square";
+    osc.frequency.value = freq;
 
-        gain.gain.setValueAtTime(0.15, time);
-        gain.gain.exponentialRampToValueAtTime(0.001, time + 0.3);
+    gain.gain.setValueAtTime(0.25, time);
+    gain.gain.exponentialRampToValueAtTime(0.001, time + 0.35);
 
-        osc.connect(gain);
-        gain.connect(ctx.destination);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
 
-        osc.start(time);
-        osc.stop(time + 0.3);
+    osc.start(time);
+    osc.stop(time + 0.35);
 
-        time += 0.3;
-      });
-    }
-
-    // Attempt autoplay
-    window.addEventListener("load", () => {
-      playAnimeOpening();
-    });
-
-    // Fallback on first interaction
-    document.body.addEventListener("click", playAnimeOpening, { once: true });
-  </script>
+    time += 0.35;
+  });
+}
+</script>
 
 </body>
 </html>
