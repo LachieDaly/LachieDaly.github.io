@@ -2,64 +2,101 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>🎉 HAPPY BIRTHDAY MODI 🎉</title>
+<title>⚠️ MODI BIRTHDAY CHAOS ⚠️</title>
 
 <style>
   body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: #111;
-    color: #f5f5f5;
-    text-align: center;
+    margin:0;
+    font-family: Impact, Arial Black, Arial, sans-serif;
+    background: black;
+    color: white;
+    text-align:center;
+    overflow-x:hidden;
+  }
+
+  /* Animated rainbow background */
+  body::before {
+    content:"";
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background: linear-gradient(45deg, red, orange, yellow, green, cyan, blue, purple);
+    background-size: 400% 400%;
+    animation: rainbowMove 8s infinite linear;
+    z-index:-1;
+    opacity:0.25;
+  }
+
+  @keyframes rainbowMove {
+    0% { background-position:0% 50%; }
+    100% { background-position:100% 50%; }
   }
 
   h1 {
-    font-size: 3em;
-    margin-top: 40px;
-    color: #00ffcc;
+    font-size:4em;
+    margin-top:40px;
+    color:#00ffff;
+    text-shadow: 4px 4px 10px hotpink;
+    animation: shake 0.5s infinite alternate;
+  }
+
+  @keyframes shake {
+    from { transform: rotate(-1deg); }
+    to { transform: rotate(1deg); }
   }
 
   h2 {
-    color: #ffd700;
+    font-size:2em;
+    margin-bottom:15px;
+    color: #ffcc00;
   }
 
   .section {
-    max-width: 700px;
-    margin: 30px auto;
-    padding: 25px;
-    border-radius: 12px;
-    background: #1f1f1f;
-    box-shadow: 0 0 15px rgba(0,255,200,0.2);
+    max-width:800px;
+    margin:40px auto;
+    padding:30px;
+    border:5px solid white;
+    border-radius:20px;
+    background: rgba(0,0,0,0.7);
+    box-shadow: 0 0 25px hotpink;
   }
 
-  p {
-    font-size: 1.1em;
-    line-height: 1.6em;
+  .claim {
+    font-size:1.3em;
+    line-height:1.8em;
   }
 
-  .aim {
-    color: #ff4d4d;
-    font-weight: bold;
+  .wild {
+    color:#ff4d4d;
+    font-size:1.5em;
+    animation: pulse 1s infinite;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
   }
 
   button {
-    font-size: 1.2em;
-    padding: 12px 25px;
-    margin-top: 15px;
-    background: #00ffcc;
-    color: black;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
+    font-size:1.5em;
+    padding:15px 30px;
+    background:#00ffcc;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    margin-top:20px;
   }
 
   button:hover {
-    background: #ffd700;
+    background:hotpink;
+    color:white;
   }
 
   footer {
-    margin: 50px 0;
-    opacity: 0.6;
+    margin:60px 0;
+    font-size:1em;
+    opacity:0.8;
   }
 </style>
 </head>
@@ -67,116 +104,116 @@
 <body>
 
 <h1>🎂 HAPPY BIRTHDAY MODI 🎂</h1>
-<p><strong>(Mohamed Ibrahim when he's in trouble)</strong></p>
+<h2>Mohamed Ibrahim — The Legend. The Myth. The Late Arrival.</h2>
 
-<button onclick="startMusic()">▶️ Start Epic Birthday Theme ◀️</button>
+<button onclick="startMusic()">▶️ INITIATE BIRTHDAY CINEMATIC ◀️</button>
 
 <div class="section">
-  <h2>🎯 Valorant Career Review</h2>
-  <p class="aim">
-    Crosshair Placement: Developing<br>
-    Spray Control: Interpretive<br>
-    Flicks: Under Investigation<br>
-    Confidence: Elite Tier
-  </p>
-  <p>
-    Enemies don’t know what you’re doing.<br>
-    Sometimes neither do you.
-  </p>
+  <h2>🎯 VALORANT PROPHECY</h2>
+  <div class="claim">
+    Crosshair Placement: Decorative<br>
+    Spray Pattern: Emotional Expression<br>
+    Flash Avoidance: Optional<br><br>
+    <span class="wild">
+      CLAIM: Modi once got 3 kills and hasn't stopped talking about it since.
+    </span>
+  </div>
 </div>
 
 <div class="section">
-  <h2>🍗 Lalaland Fried Chicken Loyalty</h2>
-  <p>
-    At this point, Lalaland should give you shareholder status.<br>
-    Blood Type: Mild with Spicy Mayo.
-  </p>
+  <h2>🍗 LALALAND FRIED CHICKEN DEVOTION</h2>
+  <div class="claim">
+    The employees greet him by name.<br>
+    His blood type is now Mild + Garlic Sauce.<br><br>
+    CLAIM: If Lalaland ever closes, he will enter his villain arc.
+  </div>
 </div>
 
 <div class="section">
-  <h2>⏰ Punctuality Arc</h2>
-  <p>
-    Event Time: 7:00pm<br>
-    Modi Text at 7:03pm: “5 mins away”<br>
-    Actual Arrival: 7:42pm
-  </p>
-  <p>
-    But we see improvement.<br>
-    Character development is real.
-  </p>
+  <h2>⏰ THE PUNCTUALITY SAGA</h2>
+  <div class="claim">
+    Event: 7:00pm<br>
+    Modi Text at 7:01pm: "Parking now"<br>
+    Actual Location: Still in the shower<br><br>
+    But he's trying. Character growth is canon.
+  </div>
 </div>
 
 <div class="section">
-  <h2>🚗 Ford Raptor Energy</h2>
-  <p>
-    Horsepower: Excessive<br>
-    Speed Limit Awareness: Optional<br>
-    Vibes: Aggressively Enthusiastic
-  </p>
+  <h2>🚗 FORD RAPTOR ENERGY</h2>
+  <div class="claim">
+    Horsepower: Illegal<br>
+    Volume Level: MAXIMUM<br>
+    Speed Limit Awareness: Theoretical<br><br>
+    CLAIM: He has said “it handles different bro” at least 47 times.
+  </div>
 </div>
 
 <div class="section">
-  <h2>🌈 Secure Masculinity Division</h2>
-  <p>
+  <h2>🌈 CONFIDENCE STATEMENT</h2>
+  <div class="claim">
     Straight? Yes.<br>
-    Afraid of fruity jokes with the boys? Never.<br>
-    Confidence Level: Comfortable.
-  </p>
+    Secure? Extremely.<br><br>
+    Famous Quote:<br>
+    <span class="wild">
+      "It ain’t gay to kiss the boys on the lips."
+    </span><br><br>
+    Brotherhood Level: Legendary.
+  </div>
 </div>
 
 <div class="section">
-  <h2>🎁 Birthday Buff Activated</h2>
-  <p>
-    Modi, you are fast.<br>
+  <h2>🎁 BIRTHDAY BUFF ACTIVATED</h2>
+  <div class="claim">
+    +15 Aim (Pending Verification)<br>
+    +10 Punctuality (Work in Progress)<br>
+    +25 Horsepower Confidence<br><br>
+    Modi, you are loud.<br>
     You are improving.<br>
-    You are trying.<br>
-    And one day... your shots will connect.
-  </p>
+    You are chaotic.<br>
+    And we wouldn’t change a thing.
+  </div>
 
-  <button onclick="alert('🎉 HAPPY BIRTHDAY MODI 🎉\\n\\n+10 Aim. +5 Punctuality. +20 Speed.')">
-    Claim Birthday Buff
+  <button onclick="alert('🎉 HAPPY BIRTHDAY MODI 🎉\\n\\nMay your shots land and your ETA be honest.')">
+    CLAIM STAT BOOST
   </button>
 </div>
 
 <footer>
-  This website was crafted with friendship and mild disrespect.<br>
-  Happy Birthday King 👑
+  This website was forged in neon chaos and mild disrespect.<br>
+  HAPPY BIRTHDAY KING 👑
 </footer>
 
 <script>
-let audioStarted = false;
+let started = false;
 
 function startMusic() {
-  if (audioStarted) return;
-  audioStarted = true;
+  if (started) return;
+  started = true;
 
   const ctx = new (window.AudioContext || window.webkitAudioContext)();
   ctx.resume();
+  let t = ctx.currentTime;
 
-  let time = ctx.currentTime;
-
-  const notes = [
-    440, 494, 523, 587, 659,
-    587, 523, 494, 440
-  ];
+  const notes = [440, 494, 523, 659, 784, 659, 523, 494, 440];
 
   notes.forEach(freq => {
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
 
-    osc.type = "square";
+    osc.type = "sawtooth";
     osc.frequency.value = freq;
 
-    gain.gain.setValueAtTime(0.25, time);
-    gain.gain.exponentialRampToValueAtTime(0.001, time + 0.35);
+    gain.gain.setValueAtTime(0.25, t);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.35);
 
     osc.connect(gain);
     gain.connect(ctx.destination);
 
-    osc.start(time);
-    osc.stop(time + 0.35);
+    osc.start(t);
+    osc.stop(t + 0.35);
 
-    time += 0.35;
+    t += 0.35;
   });
 }
 </script>
