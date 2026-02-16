@@ -6,80 +6,60 @@
 
 <style>
   body {
-    margin:0;
-    font-family: "Comic Sans MS", cursive;
-    text-align:center;
-    color:white;
-    background: linear-gradient(45deg, red, purple, cyan);
-    animation: hueSpin 8s infinite linear;
-  }
-
-  @keyframes hueSpin {
-    0% { filter: hue-rotate(0deg); }
-    100% { filter: hue-rotate(360deg); }
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #111;
+    color: #f5f5f5;
+    text-align: center;
   }
 
   h1 {
-    font-size:4em;
-    margin-top:30px;
-    text-shadow:4px 4px black;
-    animation: bounce 1s infinite alternate;
+    font-size: 3em;
+    margin-top: 40px;
+    color: #00ffcc;
   }
 
-  @keyframes bounce {
-    from { transform: translateY(0px); }
-    to { transform: translateY(-15px); }
+  h2 {
+    color: #ffd700;
   }
 
   .section {
-    margin:40px;
-    padding:25px;
-    border:6px dashed yellow;
-    background: rgba(0,0,0,0.5);
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 25px;
+    border-radius: 12px;
+    background: #1f1f1f;
+    box-shadow: 0 0 15px rgba(0,255,200,0.2);
   }
 
-  button {
-    font-size:1.5em;
-    padding:15px 25px;
-    background:lime;
-    border:4px solid black;
-    cursor:pointer;
-    margin-top:20px;
-  }
-
-  button:hover {
-    background:hotpink;
-    transform:scale(1.2);
-  }
-
-  .late {
-    animation: slideIn 3s infinite alternate;
-  }
-
-  @keyframes slideIn {
-    from { transform: translateX(-30px); }
-    to { transform: translateX(30px); }
+  p {
+    font-size: 1.1em;
+    line-height: 1.6em;
   }
 
   .aim {
-    color:red;
-    font-weight:bold;
-    font-size:1.4em;
+    color: #ff4d4d;
+    font-weight: bold;
   }
 
-  .truck {
-    font-size:1.3em;
-    animation: shake 0.2s infinite alternate;
+  button {
+    font-size: 1.2em;
+    padding: 12px 25px;
+    margin-top: 15px;
+    background: #00ffcc;
+    color: black;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
   }
 
-  @keyframes shake {
-    from { transform: rotate(-1deg); }
-    to { transform: rotate(1deg); }
+  button:hover {
+    background: #ffd700;
   }
 
   footer {
-    margin-top:50px;
-    opacity:0.7;
+    margin: 50px 0;
+    opacity: 0.6;
   }
 </style>
 </head>
@@ -87,85 +67,79 @@
 <body>
 
 <h1>🎂 HAPPY BIRTHDAY MODI 🎂</h1>
-<h2>(Mohamed Ibrahim, but only when in trouble)</h2>
+<p><strong>(Mohamed Ibrahim when he's in trouble)</strong></p>
 
-<button onclick="startMusic()">▶️ START EPIC BIRTHDAY THEME ◀️</button>
+<button onclick="startMusic()">▶️ Start Epic Birthday Theme ◀️</button>
 
 <div class="section">
-  <h2>🎯 Valorant Career Review 🎯</h2>
+  <h2>🎯 Valorant Career Review</h2>
   <p class="aim">
-    Crosshair Placement: Questionable<br>
-    Spray Control: Emotional<br>
-    Flicks: Sent to Allah for processing<br>
-    Confidence: UNMATCHED
+    Crosshair Placement: Developing<br>
+    Spray Control: Interpretive<br>
+    Flicks: Under Investigation<br>
+    Confidence: Elite Tier
   </p>
   <p>
-    Your enemies fear you.<br>
-    Mostly because you might accidentally hit them.
+    Enemies don’t know what you’re doing.<br>
+    Sometimes neither do you.
   </p>
 </div>
 
 <div class="section">
-  <h2>🍗 Lalaland Fried Chicken Devotion 🍗</h2>
+  <h2>🍗 Lalaland Fried Chicken Loyalty</h2>
   <p>
-    Scientists confirm your bloodstream is now 14% spicy mayo.
-  </p>
-  <p>
-    Loyalty Level: Diamond Rank<br>
-    Sauce Consumption: Criminal
+    At this point, Lalaland should give you shareholder status.<br>
+    Blood Type: Mild with Spicy Mayo.
   </p>
 </div>
 
 <div class="section">
-  <h2>⏰ Arrival Time Analysis ⏰</h2>
-  <div class="late">
-    Event Starts: 7:00pm<br>
-    Modi ETA: 7:47pm<br>
-    Text at 7:02pm: "5 mins away"
-  </div>
+  <h2>⏰ Punctuality Arc</h2>
   <p>
-    But we see the growth. We see the effort.<br>
-    Character development arc in progress.
+    Event Time: 7:00pm<br>
+    Modi Text at 7:03pm: “5 mins away”<br>
+    Actual Arrival: 7:42pm
+  </p>
+  <p>
+    But we see improvement.<br>
+    Character development is real.
   </p>
 </div>
 
 <div class="section">
-  <h2>🚗 Ford Raptor Appreciation 🚗</h2>
-  <div class="truck">
-    VROOM VROOM BROTHER<br>
-    SPEED LIMITS ARE SUGGESTIONS
-  </div>
+  <h2>🚗 Ford Raptor Energy</h2>
   <p>
-    If horsepower was personality,<br>
-    you’d still be loud.
+    Horsepower: Excessive<br>
+    Speed Limit Awareness: Optional<br>
+    Vibes: Aggressively Enthusiastic
   </p>
 </div>
 
 <div class="section">
-  <h2>🌈 Straight But… 🌈</h2>
+  <h2>🌈 Secure Masculinity Division</h2>
   <p>
     Straight? Yes.<br>
-    Comfortable making fruity jokes with the boys? Also yes.<br>
-    Secure masculinity level: MAXED OUT.
+    Afraid of fruity jokes with the boys? Never.<br>
+    Confidence Level: Comfortable.
   </p>
 </div>
 
 <div class="section">
-  <h2>🎁 Final Blessing 🎁</h2>
+  <h2>🎁 Birthday Buff Activated</h2>
   <p>
     Modi, you are fast.<br>
     You are improving.<br>
-    You are occasionally punctual.<br>
-    And your aim... will get there one day.
+    You are trying.<br>
+    And one day... your shots will connect.
   </p>
 
-  <button onclick="alert('🎉 HAPPY BIRTHDAY MODI 🎉\\n\\nMay your bullets finally connect.')">
-    CLAIM BIRTHDAY BUFF
+  <button onclick="alert('🎉 HAPPY BIRTHDAY MODI 🎉\\n\\n+10 Aim. +5 Punctuality. +20 Speed.')">
+    Claim Birthday Buff
   </button>
 </div>
 
 <footer>
-  This website was engineered with zero restraint.<br>
+  This website was crafted with friendship and mild disrespect.<br>
   Happy Birthday King 👑
 </footer>
 
@@ -182,8 +156,7 @@ function startMusic() {
   let time = ctx.currentTime;
 
   const notes = [
-    440, 440, 494, 523, 494,
-    440, 392, 440, 523, 659,
+    440, 494, 523, 587, 659,
     587, 523, 494, 440
   ];
 
