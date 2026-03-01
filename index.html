@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>🚨 MODI CINEMATIC EXPERIENCE 🚨</title>
+
+<style>
+body{
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:#0b0b12;
+  color:white;
+  text-align:center;
+  overflow-x:hidden;
+  transition:.4s;
+}
+
+/* Neon animated background */
+body::before{
+  content:"";
+  position:fixed;
+  width:100%;height:100%;
+  background:linear-gradient(45deg,#ff00cc,#00ffff,#ff9900,#00ff88);
+  background-size:400% 400%;
+  animation:bgmove 15s linear infinite;
+  opacity:.12;
+  z-index:-1;
+}
+@keyframes bgmove{
+  0%{background-position:0% 50%;}
+  100%{background-position:100% 50%;}
+}
+
+h1{
+  margin-top:40px;
+  font-size:3.5em;
+  color:#00ffff;
+  text-shadow:0 0 20px #00ffff;
+}
+
+.section{
+  max-width:900px;
+  margin:40px auto;
+  padding:30px;
+  background:#151522;
+  border-radius:18px;
+  box-shadow:0 0 25px rgba(0,255,255,.2);
+}
+
+h2{color:#ffcc00;}
+
+.big{line-height:1.8em;font-size:1.1em;}
+
+button{
+  margin:10px;
+  padding:12px 22px;
+  border:none;
+  border-radius:8px;
+  font-size:1em;
+  cursor:pointer;
+  background:#00ffcc;
+  transition:.2s;
+}
+button:hover{
+  background:#ff00cc;
+  color:white;
+  transform:scale(1.1);
+}
+
+.shake{
+  animation:shake .4s;
+}
+@keyframes shake{
+  0%{transform:translateX(0)}
+  25%{transform:translateX(-8px)}
+  50%{transform:translateX(8px)}
+  75%{transform:translateX(-5px)}
+  100%{transform:translateX(0)}
+}
+
+/* Floating chicken */
+.chicken{
+  position:fixed;
+  font-size:28px;
+  animation:float 12s linear infinite;
+}
+@keyframes float{
+  from{transform:translateY(110vh);}
+  to{transform:translateY(-10vh);}
+}
+
+/* Excel popup */
+#excelPopup{
+  display:none;
+  position:fixed;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  background:white;
+  color:black;
+  padding:20px;
+  border-radius:10px;
+  box-shadow:0 0 30px rgba(0,0,0,.6);
+  width:420px;
+  text-align:left;
+  font-family:monospace;
+}
+
+/* Gym edit filter */
+.gym{
+  filter:contrast(150%) saturate(170%) brightness(115%);
+}
+
+footer{margin:60px 0;opacity:.7;}
+</style>
+</head>
+<body>
+
+<h1>🎂 MODI BIRTHDAY EXPERIENCE 🎂</h1>
+
+<div class="section">
+<h2>🎮 Blue Prince Streaming Energy</h2>
+<div class="big">
+POV: You are active on discord<br>
+Modi: <strong>"stream"</strong><br><br>
+Also him during cutscene where two characters kiss:<br>
+<strong>"That could be us. *makes kiss noise*."</strong>
+</div>
+</div>
+
+<div class="section">
+<h2>🎯 Valorant Comms (Unintelligible Edition)</h2>
+<div class="big">
+<strong>
+"Bro- nah- wait- he's like- hold- no OTHER left- no MY left- I pinged it- I DID- my mouse- bro the DPI- nah- you saw that- chat saw that-"
+</strong>
+</div>
+</div>
+
+<div class="section">
+<h2>🍗 Lalaland Sauce Matrix</h2>
+<div class="big">
+Sriracha Mayo • Wasabi Mayo • Honey Soy • Sweet Chilli • Volcano Chilli • Original<br><br>
+Snow Cheese: publicly denounced.<br>
+</div>
+</div>
+
+<div class="section">
+<h2>🧗 Reason Modi does not climb</h2>
+<div class="big">
+  <img src="https://gifdb.com/images/high/falling-gibby-gibson-icarly-qohtdfnyc7yc4vgd.webp" />
+</div>
+</div>
+
+<div class="section">
+<h2>👀 Totally Straight Commentary</h2>
+<div class="big">
+Gym bro walks past:<br>
+<strong>"Bro's actually built. Respectfully. Respectfully."</strong><br><br>
+Watching romance scene:<br>
+<strong>*Looks a little too long at you and winks*</strong><br>
+</div>
+</div>
+
+<div class="section">
+<h2>⏰ Live ETA System</h2>
+<div class="big">
+ETA: <span id="eta">5</span> mins<br>
+Bathroom Status: <span id="bathroom">Checking...</span>
+</div>
+<button onclick="manualDelay()">Delay Again</button>
+<button onclick="checkBathroom()">Check Bathroom</button>
+</div>
+
+<div class="section">
+<h2>🚆 Corporate Rail Overlord</h2>
+<div class="big">
+By day: sourcing precision train components.<br>
+By night: running trains on me<br><br>
+Expected Meeting Quote:<br>
+<strong>"Yeah procurement just needs to align with rail compliance deliverables— synergy— circle back."</strong>
+</div>
+<button onclick="openExcel()">Open Excel Sheet</button>
+</div>
+<footer>
+Instagram Reels Energy. Rail Logistics Dominance. Bathroom Delays Active.<br>
+HAPPY BIRTHDAY KING 👑
+</footer>
+
+<div id="excelPopup">
+<strong>TRAIN_PARTS_MASTER.xlsx</strong><br><br>
+Axle_Coupling_A9 | Ordered ✔<br>
+Brake_Assembly_X2 | Pending<br>
+Hydraulic_Link_22B | Backorder<br>
+Sauce_Optimization_v4.xlsx | Confidential<br><br>
+Notes:<br>
+• "Remember to stream Blue Prince"<br>
+• "Snow cheese still mid"<br>
+• "That could be us???"<br><br>
+<button onclick="closeExcel()">Close</button>
+</div>
+
+<script>
+/* Floating chickens */
+for(let i=0;i<14;i++){
+ let c=document.createElement("div");
+ c.className="chicken";
+ c.style.left=Math.random()*100+"vw";
+ c.style.animationDuration=(8+Math.random()*8)+"s";
+ c.innerHTML="🍗";
+ document.body.appendChild(c);
+}
+
+/* ETA auto increase */
+let eta=5;
+setInterval(()=>{
+ eta+=1;
+ document.getElementById("eta").innerText=eta;
+},4000);
+
+function manualDelay(){
+ eta+=5;
+ document.getElementById("eta").innerText=eta;
+}
+
+/* Bathroom tracker */
+function checkBathroom(){
+ const statuses=[
+ "On toilet. Reels open.",
+ "Said 2 mins. It’s been 14.",
+ "Watching gym edits mid-mission.",
+ "Critical scroll phase.",
+ "Still in there. No updates."
+ ];
+ document.getElementById("bathroom").innerText=
+ statuses[Math.floor(Math.random()*statuses.length)];
+}
+
+/* Excel popup */
+function openExcel(){
+ document.getElementById("excelPopup").style.display="block";
+}
+function closeExcel(){
+ document.getElementById("excelPopup").style.display="none";
+}
+
+/* Gym filter */
+function toggleGym(){
+ document.body.classList.toggle("gym");
+}
+
+/* Trap beat */
+let beatStarted=false;
+function startBeat(){
+ if(beatStarted) return;
+ beatStarted=true;
+ const ctx=new (window.AudioContext||window.webkitAudioContext)();
+ ctx.resume();
+ setInterval(()=>{
+   const kick=ctx.createOscillator();
+   const gain=ctx.createGain();
+   kick.type="sine";
+   kick.frequency.setValueAtTime(110,ctx.currentTime);
+   gain.gain.setValueAtTime(.6,ctx.currentTime);
+   gain.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.3);
+   kick.connect(gain);
+   gain.connect(ctx.destination);
+   kick.start();
+   kick.stop(ctx.currentTime+.3);
+ },600);
+}
+</script>
+
+</body>
+</html>
