@@ -4,8 +4,9 @@ import { remark } from "remark";
 import remarkHtml from "remark-html";
 import { getAllSlugs, getPostBySlug } from "@/lib/blog";
 
+// Next.js passes params as a plain object for App Router route segments
 interface Props {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 }
 
 /**
@@ -18,10 +19,11 @@ export async function generateStaticParams() {
 
 /**
  * Generate per-page metadata (title + description) from the post frontmatter.
+ * `getPostBySlug` is memoized via React `cache`, so the file is only read once
+ * per slug even though this function and the page component both call it.
  */
 export async function generateMetadata({ params }: Props) {
-  const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = getPostBySlug(params.slug);
   if (!post) return {};
   return {
     title: `${post.title} | Lachlan Daly`,
@@ -30,8 +32,7 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function BlogPostPage({ params }: Props) {
-  const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = getPostBySlug(params.slug);
 
   // Return a 404 if no post matches the slug
   if (!post) notFound();
@@ -49,7 +50,8 @@ export default async function BlogPostPage({ params }: Props) {
           dateTime={post.date}
           className="text-sm text-slate-400 dark:text-slate-500 block"
         >
-          {new Date(post.date).toLocaleDateString("en-AU", {
+          {/* Append T00:00:00 so YYYY-MM-DD is treated as local time, not UTC */}
+          {new Date(`${post.date}T00:00:00`).toLocaleDateString("en-AU", {
             year: "numeric",
             month: "long",
             day: "numeric",

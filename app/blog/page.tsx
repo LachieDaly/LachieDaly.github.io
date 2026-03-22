@@ -33,12 +33,12 @@ export default function BlogPage() {
                       {post.title}
                     </h2>
 
-                    {/* Formatted date */}
+                    {/* Formatted date — append T00:00:00 so YYYY-MM-DD is treated as local time */}
                     <time
                       dateTime={post.date}
                       className="text-xs text-slate-400 dark:text-slate-500 mb-2 block"
                     >
-                      {new Date(post.date).toLocaleDateString("en-AU", {
+                      {new Date(`${post.date}T00:00:00`).toLocaleDateString("en-AU", {
                         year: "numeric",
                         month: "long",
                         day: "numeric",
