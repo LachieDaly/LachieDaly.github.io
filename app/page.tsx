@@ -15,7 +15,7 @@ const experience = [
     roles: [
       { title: "Software Engineer Intern", type: "Part-time", start: "Nov 2020", end: "Feb 2023" },
     ],
-    description: "Developed features using ASP.NET MVC and Azure DevOps.",
+    description: "Developed and maintained features for a property key management platform using ASP.NET MVC, SQL Server, and Azure DevOps.",
   },
   {
     company: "InspectRealEstate",
@@ -23,7 +23,7 @@ const experience = [
     roles: [
       { title: "Engineering Intern", type: "Part-time", start: "Nov 2019", end: "Nov 2020" },
     ],
-    description: "Engineering internship contributing to real estate software.",
+    description: "Contributed to the development of real estate inspection software, gaining experience across the full software development lifecycle.",
   },
 ];
 

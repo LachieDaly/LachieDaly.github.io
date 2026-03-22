@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# lachlandaly.com
+
+Personal portfolio and blog website for Lachlan Daly — a software engineer based in Brisbane, Australia.
+
+The site serves as a professional home: it showcases work experience and education, and hosts a blog covering software engineering, tooling, and things being built.
+
+Live at: **[lachlandaly.com](https://lachlandaly.com)**
+
+## Tech Stack
+
+- **[Next.js](https://nextjs.org)** (App Router, static export)
+- **[React](https://react.dev)** 19
+- **[TypeScript](https://www.typescriptlang.org)**
+- **[Tailwind CSS](https://tailwindcss.com)** v4 with Typography plugin
+- **Markdown blog** powered by [remark](https://remark.js.org) and [gray-matter](https://github.com/jonschlinkert/gray-matter)
+- Deployed to **[GitHub Pages](https://pages.github.com)** via GitHub Actions
 
 ## Getting Started
 
-First, run the development server:
+Install dependencies and run the development server:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the site.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+app/               # Next.js App Router pages and layouts
+  page.tsx         # Home page (portfolio / resume)
+  layout.tsx       # Root layout with navigation and footer
+  blog/
+    page.tsx       # Blog listing
+    [slug]/        # Individual blog post pages
+content/
+  blog/            # Markdown files for blog posts
+lib/
+  blog.ts          # Utilities for reading and parsing blog posts
+public/            # Static assets
+```
 
-## Learn More
+## Adding a Blog Post
 
-To learn more about Next.js, take a look at the following resources:
+Create a new `.md` file in `content/blog/` with the following frontmatter:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```markdown
+---
+title: "Your Post Title"
+date: "YYYY-MM-DD"
+description: "A short summary of the post."
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Post content goes here.
+```
 
-## Deploy on Vercel
+## Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The site is automatically built and deployed to GitHub Pages on every push to `main` via the workflow defined in `.github/workflows/nextjs.yml`.
