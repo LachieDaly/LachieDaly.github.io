@@ -23,7 +23,7 @@ export default function ContactPage() {
         </h2>
         <div className="space-y-4">
           <a
-            href="mailto:lachlanjdaly@gmail.com"
+            href="mailto:lachiedaly@gmail.com"
             className={linkCardClass}
           >
             <div>
@@ -31,7 +31,7 @@ export default function ContactPage() {
                 Email
               </p>
               <p className="text-sm text-slate-500 dark:text-slate-400">
-                lachlanjdaly@gmail.com
+                lachiedaly@gmail.com
               </p>
             </div>
             <span className="text-slate-400 dark:text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors text-sm">
