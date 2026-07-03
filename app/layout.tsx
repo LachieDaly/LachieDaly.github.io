@@ -31,7 +31,7 @@ export default function RootLayout({
             <Link href="/projects" className="hover:text-slate-900 dark:hover:text-slate-100 transition-colors">
               Projects
             </Link>
-            <Link href="/games/soundtrack" className="hover:text-slate-900 dark:hover:text-slate-100 transition-colors">
+            <Link href="/games" className="hover:text-slate-900 dark:hover:text-slate-100 transition-colors">
               Games
             </Link>
             <Link href="/blog" className="hover:text-slate-900 dark:hover:text-slate-100 transition-colors">
