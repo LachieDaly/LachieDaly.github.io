@@ -10,7 +10,7 @@ const games = [
     name: "Reviewd",
     href: "/games/reviewd",
     description:
-      "Great movies, terrible reviews. Read a scathing low-star Letterboxd review and guess which movie is being trashed.",
+      "Great movies, terrible reviews. Guess the movie from a scathing Letterboxd review — every wrong guess unlocks an easier one.",
     tags: ["Movie quiz", "20 rounds"],
   },
   {

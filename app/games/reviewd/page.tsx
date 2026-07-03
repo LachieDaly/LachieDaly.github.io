@@ -1,12 +1,13 @@
 'use client';
 
 import { useCallback, useMemo, useRef, useState } from 'react';
-import { ROUNDS, type ReviewRound } from './reviews';
+import { ROUNDS, type ReviewRound, type RoundReview } from './reviews';
 
 type Phase = 'start' | 'playing' | 'answered' | 'end';
 
 const TOTAL = ROUNDS.length;
 const MAX_GUESSES = 3;
+const MAX_SCORE = TOTAL * MAX_GUESSES;
 
 // Fisher-Yates: unbiased, unlike sorting by a random comparator
 function shuffle<T>(arr: T[]): T[] {
@@ -66,14 +67,17 @@ function Stars({ value }: { value: number }) {
   const full = Math.floor(value);
   const half = value % 1 !== 0;
   return (
-    <span className="text-emerald-600 dark:text-emerald-400 font-semibold tracking-tight" aria-label={`${value} out of 5 stars`}>
+    <span
+      className="text-emerald-600 dark:text-emerald-400 font-semibold tracking-tight"
+      aria-label={`${value} out of 5 stars`}
+    >
       {'★'.repeat(full)}
       {half && '½'}
     </span>
   );
 }
 
-function ReviewCard({ round, revealed }: { round: ReviewRound; revealed: boolean }) {
+function ReviewCard({ review, index }: { review: RoundReview; index: number }) {
   return (
     <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 p-5 space-y-3">
       <div className="flex items-center gap-3">
@@ -83,34 +87,27 @@ function ReviewCard({ round, revealed }: { round: ReviewRound; revealed: boolean
         />
         <div>
           <p className="text-sm font-medium text-slate-700 dark:text-slate-300">
-            Review by a Letterboxd member
+            Review #{index + 1} · a Letterboxd member
           </p>
           <p className="text-xs text-slate-400 dark:text-slate-500">
-            {round.stars !== undefined ? <Stars value={round.stars} /> : 'No rating'}
-            {' · '}
-            {revealed ? (
-              <span className="font-medium text-slate-600 dark:text-slate-300">
-                {round.answer} ({round.year})
-              </span>
-            ) : (
-              'watched ████████'
-            )}
+            {review.stars !== undefined ? <Stars value={review.stars} /> : 'No rating'}
+            {' · watched ████████'}
           </p>
         </div>
       </div>
       <blockquote className="text-lg leading-relaxed text-slate-800 dark:text-slate-200">
-        {round.review}
+        {review.text}
       </blockquote>
     </div>
   );
 }
 
 function resultMessage(score: number): string {
-  const pct = score / TOTAL;
-  if (pct === 1) return 'Perfect. You can identify a movie purely by the hate it gets.';
-  if (pct >= 0.8) return 'Outstanding — barely a review gets past you.';
-  if (pct >= 0.6) return 'Solid. You clearly spend time in the trenches of Letterboxd.';
-  if (pct >= 0.4) return 'Not bad, but the half-star army defeated you more than once.';
+  const pct = score / MAX_SCORE;
+  if (pct >= 0.9) return 'Incredible. You can identify a movie purely by the hate it gets.';
+  if (pct >= 0.7) return 'Outstanding — barely a review gets past you.';
+  if (pct >= 0.5) return 'Solid. You clearly spend time in the trenches of Letterboxd.';
+  if (pct >= 0.3) return 'Not bad, but the half-star army defeated you more than once.';
   return 'Rough. Maybe watch the movies before reading the reviews.';
 }
 
@@ -121,7 +118,7 @@ export default function Reviewd() {
   const [guess, setGuess] = useState('');
   const [misses, setMisses] = useState<string[]>([]);
   const [solved, setSolved] = useState(false);
-  const [results, setResults] = useState<boolean[]>([]);
+  const [points, setPoints] = useState<number[]>([]);
   const [score, setScore] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -133,28 +130,32 @@ export default function Reviewd() {
     setGuess('');
     setMisses([]);
     setSolved(false);
-    setResults([]);
+    setPoints([]);
     setScore(0);
     setPhase('playing');
   }, []);
 
-  const finishRound = useCallback((won: boolean) => {
-    setSolved(won);
-    setResults(r => [...r, won]);
-    if (won) setScore(s => s + 1);
-    setPhase('answered');
-  }, []);
+  const finishRound = useCallback(
+    (won: boolean, missCount: number) => {
+      const earned = won ? MAX_GUESSES - missCount : 0;
+      setSolved(won);
+      setPoints(p => [...p, earned]);
+      setScore(s => s + earned);
+      setPhase('answered');
+    },
+    [],
+  );
 
   const submitGuess = useCallback(() => {
     const attempt = guess.trim();
     if (!attempt || phase !== 'playing') return;
     if (isCorrect(attempt, round)) {
-      finishRound(true);
+      finishRound(true, misses.length);
     } else {
       const nextMisses = [...misses, attempt];
       setMisses(nextMisses);
       setGuess('');
-      if (nextMisses.length >= MAX_GUESSES) finishRound(false);
+      if (nextMisses.length >= MAX_GUESSES) finishRound(false, nextMisses.length);
       else inputRef.current?.focus();
     }
   }, [guess, phase, round, misses, finishRound]);
@@ -171,13 +172,16 @@ export default function Reviewd() {
     }
   }, [current]);
 
-  const guessesLeft = MAX_GUESSES - misses.length;
+  const isAnswered = phase === 'answered';
+  const unlocked = isAnswered ? MAX_GUESSES : misses.length + 1;
+  const pointsOnOffer = MAX_GUESSES - misses.length;
+
   const placeholder = useMemo(
     () =>
       misses.length === 0
         ? 'Name that movie…'
-        : `${guessesLeft} ${guessesLeft === 1 ? 'guess' : 'guesses'} left…`,
-    [misses.length, guessesLeft],
+        : `Guess again for ${pointsOnOffer} ${pointsOnOffer === 1 ? 'point' : 'points'}…`,
+    [misses.length, pointsOnOffer],
   );
 
   if (phase === 'start') {
@@ -193,9 +197,9 @@ export default function Reviewd() {
 
         <ul className="space-y-2 text-sm text-slate-500 dark:text-slate-400 list-disc list-inside">
           <li>{TOTAL} rounds, shuffled each game</li>
-          <li>Type your guess — {MAX_GUESSES} attempts per round, minor typos forgiven</li>
-          <li>A hint unlocks after each wrong guess</li>
-          <li>Titles in the reviews are redacted: ████</li>
+          <li>Every wrong guess unlocks another, easier review of the same movie</li>
+          <li>3 points if you get it from the first review, 2 from the second, 1 from the third</li>
+          <li>Minor typos are forgiven · titles in the reviews are redacted: ████</li>
         </ul>
 
         <button
@@ -218,7 +222,9 @@ export default function Reviewd() {
 
         <div className="py-10 text-center">
           <span className="text-7xl font-bold tabular-nums">{score}</span>
-          <span className="text-4xl text-slate-300 dark:text-slate-600 font-bold">/{TOTAL}</span>
+          <span className="text-4xl text-slate-300 dark:text-slate-600 font-bold">
+            /{MAX_SCORE}
+          </span>
         </div>
 
         <div className="space-y-2">
@@ -233,13 +239,13 @@ export default function Reviewd() {
                   <span className="ml-2 text-xs text-slate-400 dark:text-slate-500">{r.year}</span>
                 </p>
                 <span
-                  className={`shrink-0 font-semibold ${
-                    results[i]
+                  className={`shrink-0 font-semibold tabular-nums ${
+                    points[i] > 0
                       ? 'text-emerald-600 dark:text-emerald-400'
                       : 'text-red-500 dark:text-red-400'
                   }`}
                 >
-                  {results[i] ? '✓' : '✗'}
+                  {points[i] > 0 ? `+${points[i]}` : '✗'}
                 </span>
               </li>
             ))}
@@ -255,8 +261,6 @@ export default function Reviewd() {
       </div>
     );
   }
-
-  const isAnswered = phase === 'answered';
 
   return (
     <div className="space-y-5">
@@ -278,7 +282,12 @@ export default function Reviewd() {
         />
       </div>
 
-      <ReviewCard round={round} revealed={isAnswered} />
+      {/* Unlocked reviews, hardest first */}
+      <div className="space-y-3">
+        {round.reviews.slice(0, unlocked).map((review, i) => (
+          <ReviewCard key={i} review={review} index={i} />
+        ))}
+      </div>
 
       {!isAnswered && (
         <>
@@ -311,7 +320,7 @@ export default function Reviewd() {
             </button>
           </form>
 
-          {/* Wrong guesses + unlocked hints */}
+          {/* Wrong guesses so far */}
           {misses.length > 0 && (
             <div className="space-y-1.5 text-sm">
               {misses.map((m, i) => (
@@ -319,15 +328,11 @@ export default function Reviewd() {
                   ✗ {m}
                 </p>
               ))}
-              <p className="text-slate-500 dark:text-slate-400">
-                <span className="font-medium">Hint:</span>{' '}
-                {misses.length === 1 ? round.hint1 : round.hint2}
-              </p>
             </div>
           )}
 
           <button
-            onClick={() => finishRound(false)}
+            onClick={() => finishRound(false, MAX_GUESSES)}
             className="text-xs text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 transition-colors underline underline-offset-2"
           >
             Give up and reveal
@@ -344,7 +349,11 @@ export default function Reviewd() {
                 : 'text-red-500 dark:text-red-400'
             }`}
           >
-            {solved ? 'Correct!' : `It was ${round.answer} (${round.year})`}
+            {solved
+              ? `Correct! It's ${round.answer} (${round.year}) — +${points[points.length - 1]} ${
+                  points[points.length - 1] === 1 ? 'point' : 'points'
+                }`
+              : `It was ${round.answer} (${round.year})`}
           </p>
           <button
             onClick={nextRound}
