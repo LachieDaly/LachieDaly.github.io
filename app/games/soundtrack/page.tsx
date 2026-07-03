@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 
 type Category = 'movie' | 'game' | 'tv';
 type Phase = 'start' | 'playing' | 'answered' | 'end';
@@ -148,6 +148,164 @@ function buildGame(): RuntimeQuestion[] {
       ...q,
       shuffledOptions: shuffle([...q.wrongAnswers, q.answer]),
     }));
+}
+
+interface YTPlayer {
+  playVideo(): void;
+  pauseVideo(): void;
+  destroy(): void;
+}
+
+interface YTNamespace {
+  Player: new (
+    el: HTMLElement,
+    opts: {
+      videoId: string;
+      width: string;
+      height: string;
+      host: string;
+      playerVars: Record<string, number>;
+      events: {
+        onReady: () => void;
+        onStateChange: (e: { data: number }) => void;
+      };
+    },
+  ) => YTPlayer;
+  PlayerState: { ENDED: number; PLAYING: number; PAUSED: number; BUFFERING: number };
+}
+
+declare global {
+  interface Window {
+    YT?: YTNamespace;
+    onYouTubeIframeAPIReady?: () => void;
+  }
+}
+
+let ytApiPromise: Promise<YTNamespace> | null = null;
+
+function loadYouTubeApi(): Promise<YTNamespace> {
+  if (window.YT?.Player) return Promise.resolve(window.YT);
+  if (!ytApiPromise) {
+    ytApiPromise = new Promise(resolve => {
+      window.onYouTubeIframeAPIReady = () => resolve(window.YT as YTNamespace);
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      document.head.appendChild(tag);
+    });
+  }
+  return ytApiPromise;
+}
+
+// Plays the clip audio-only while the question is open: the real YouTube iframe
+// stays offscreen so its title overlay and thumbnail can't reveal the answer.
+// Once `revealed` flips (after answering), the video is shown normally.
+function SoundtrackPlayer({ videoId, revealed }: { videoId: string; revealed: boolean }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const playerRef = useRef<YTPlayer | null>(null);
+  const [ready, setReady] = useState(false);
+  const [playing, setPlaying] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    const container = containerRef.current;
+
+    loadYouTubeApi().then(YT => {
+      if (cancelled || !container) return;
+      const mount = document.createElement('div');
+      container.appendChild(mount);
+      playerRef.current = new YT.Player(mount, {
+        videoId,
+        width: '100%',
+        height: '100%',
+        host: 'https://www.youtube-nocookie.com',
+        playerVars: { rel: 0, modestbranding: 1, playsinline: 1 },
+        events: {
+          onReady: () => {
+            if (!cancelled) setReady(true);
+          },
+          onStateChange: e => {
+            if (cancelled) return;
+            setPlaying(e.data === YT.PlayerState.PLAYING || e.data === YT.PlayerState.BUFFERING);
+          },
+        },
+      });
+    });
+
+    return () => {
+      cancelled = true;
+      playerRef.current?.destroy();
+      playerRef.current = null;
+      if (container) container.innerHTML = '';
+    };
+  }, [videoId]);
+
+  const toggle = () => {
+    const player = playerRef.current;
+    if (!player || !ready) return;
+    if (playing) player.pauseVideo();
+    else player.playVideo();
+  };
+
+  return (
+    <div className="relative rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800">
+      <div
+        className={
+          revealed
+            ? 'aspect-video'
+            : 'absolute -left-[9999px] top-0 w-px h-px overflow-hidden opacity-0 pointer-events-none'
+        }
+        aria-hidden={!revealed}
+      >
+        <div ref={containerRef} className="w-full h-full [&>iframe]:w-full [&>iframe]:h-full" />
+      </div>
+
+      {!revealed && (
+        <div className="flex items-center gap-4 p-5 bg-slate-50 dark:bg-slate-900">
+          <style>{`@keyframes st-eq { 0%, 100% { transform: scaleY(0.3); } 50% { transform: scaleY(1); } }`}</style>
+          <button
+            onClick={toggle}
+            disabled={!ready}
+            aria-label={playing ? 'Pause soundtrack' : 'Play soundtrack'}
+            className="shrink-0 w-12 h-12 rounded-full bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 flex items-center justify-center hover:opacity-80 transition-opacity disabled:opacity-40"
+          >
+            {playing ? (
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                <rect x="2" y="1" width="4" height="14" rx="1" />
+                <rect x="10" y="1" width="4" height="14" rx="1" />
+              </svg>
+            ) : (
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                <path d="M4 1.6a1 1 0 0 1 1.52-.85l10 6.4a1 1 0 0 1 0 1.7l-10 6.4A1 1 0 0 1 4 14.4V1.6z" transform="scale(0.85) translate(1.5 1.5)" />
+              </svg>
+            )}
+          </button>
+
+          <div className="min-w-0">
+            <p className="text-sm font-medium text-slate-700 dark:text-slate-300">
+              Mystery soundtrack
+            </p>
+            <p className="text-xs text-slate-400 dark:text-slate-500">
+              {ready ? 'Audio only — the video stays hidden until you answer' : 'Loading player…'}
+            </p>
+          </div>
+
+          <div className="ml-auto flex items-end gap-1 h-8" aria-hidden="true">
+            {[0, 1, 2, 3, 4].map(i => (
+              <span
+                key={i}
+                className="w-1 h-full rounded-full bg-slate-300 dark:bg-slate-600 origin-bottom"
+                style={
+                  playing
+                    ? { animation: `st-eq ${0.8 + i * 0.13}s ease-in-out ${i * 0.1}s infinite` }
+                    : { transform: 'scaleY(0.3)' }
+                }
+              />
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
 
 function resultMessage(score: number): string {
@@ -327,17 +485,8 @@ export default function SoundtrackGuesser() {
         />
       </div>
 
-      {/* YouTube embed */}
-      <div className="rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800">
-        <iframe
-          key={q.id}
-          src={`https://www.youtube-nocookie.com/embed/${q.youtubeId}?rel=0&modestbranding=1`}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          className="w-full aspect-video"
-          title="Soundtrack clip"
-        />
-      </div>
+      {/* Hidden-video soundtrack player (revealed after answering) */}
+      <SoundtrackPlayer key={q.id} videoId={q.youtubeId} revealed={isAnswered} />
 
       <p className="text-sm font-medium text-slate-700 dark:text-slate-300">
         Which movie, game, or TV show does this soundtrack belong to?
