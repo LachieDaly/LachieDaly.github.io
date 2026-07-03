@@ -1,0 +1,228 @@
+export interface ReviewRound {
+  id: string;
+  /** The movie being trashed */
+  answer: string;
+  /** Accepted alternate titles (already normalised loosely — matching normalises again) */
+  altAnswers: string[];
+  year: number;
+  /** The review text; ████ marks where the title was redacted */
+  review: string;
+  /** Star rating out of 5 the reviewer gave, in half-star steps. Omit if unknown. */
+  stars?: number;
+  /** Shown after the first wrong guess */
+  hint1: string;
+  /** Shown after the second wrong guess */
+  hint2: string;
+}
+
+export const ROUNDS: ReviewRound[] = [
+  {
+    id: 'godfather',
+    answer: 'The Godfather',
+    altAnswers: ['godfather'],
+    year: 1972,
+    review: 'Whatever. Overrated as hell.',
+    stars: 0.5,
+    hint1: '1970s · crime epic',
+    hint2: '1972 · directed by Francis Ford Coppola',
+  },
+  {
+    id: '2001',
+    answer: '2001: A Space Odyssey',
+    altAnswers: ['2001', '2001 a space odyssey', 'a space odyssey', 'space odyssey'],
+    year: 1968,
+    review:
+      '████ is quite simply the worst thing to happen to cinema ever. Its forced profundity has caused millions of people all over the world to force themselves to like what is quite simply nothing more than an exercise in style.',
+    stars: 0.5,
+    hint1: '1960s · sci-fi',
+    hint2: '1968 · directed by Stanley Kubrick',
+  },
+  {
+    id: 'alien',
+    answer: 'Alien',
+    altAnswers: [],
+    year: 1979,
+    review: 'the fact that the ████ murders all the white men first is so funny',
+    hint1: '1970s · sci-fi horror',
+    hint2: '1979 · directed by Ridley Scott, starring Sigourney Weaver',
+  },
+  {
+    id: 'matrix-reloaded',
+    answer: 'The Matrix Reloaded',
+    altAnswers: ['matrix reloaded', 'the matrix 2', 'matrix 2'],
+    year: 2003,
+    review:
+      'Tiresome, loquacious, self-admiring hogwash, for all its fancy trappings and technical brio.',
+    stars: 1.5,
+    hint1: '2000s · sci-fi action sequel',
+    hint2: '2003 · directed by the Wachowskis',
+  },
+  {
+    id: 'titanic',
+    answer: 'Titanic',
+    altAnswers: [],
+    year: 1997,
+    review: 'this would never happen in dubai',
+    stars: 0.5,
+    hint1: '1990s · romance / disaster',
+    hint2: '1997 · directed by James Cameron',
+  },
+  {
+    id: 'interstellar',
+    answer: 'Interstellar',
+    altAnswers: [],
+    year: 2014,
+    review: 'no way they made a 3 hour long movie about the back of a bookshelf',
+    stars: 1,
+    hint1: '2010s · sci-fi',
+    hint2: '2014 · directed by Christopher Nolan',
+  },
+  {
+    id: 'lighthouse',
+    answer: 'The Lighthouse',
+    altAnswers: ['lighthouse'],
+    year: 2019,
+    review: 'men will literally live in a ████ instead of going to therapy',
+    stars: 1,
+    hint1: '2010s · black-and-white psychological horror',
+    hint2: '2019 · Robert Eggers, starring Willem Dafoe and Robert Pattinson',
+  },
+  {
+    id: 'morbius',
+    answer: 'Morbius',
+    altAnswers: [],
+    year: 2022,
+    review: "it's ████in' time",
+    stars: 0.5,
+    hint1: '2020s · superhero',
+    hint2: '2022 · starring Jared Leto as a vampire scientist',
+  },
+  {
+    id: 'midsommar',
+    answer: 'Midsommar',
+    altAnswers: [],
+    year: 2019,
+    review: 'never doing drugs with white people again',
+    stars: 1,
+    hint1: '2010s · folk horror in broad daylight',
+    hint2: '2019 · Ari Aster, starring Florence Pugh',
+  },
+  {
+    id: 'marriage-story',
+    answer: 'Marriage Story',
+    altAnswers: [],
+    year: 2019,
+    review: 'two hot people yelling at each other for two hours. exhausting.',
+    stars: 1,
+    hint1: '2010s · divorce drama',
+    hint2: '2019 · Noah Baumbach, starring Scarlett Johansson and Adam Driver',
+  },
+  {
+    id: 'dune',
+    answer: 'Dune',
+    altAnswers: ['dune part one', 'dune part 1', 'dune 2021'],
+    year: 2021,
+    review: 'sand',
+    stars: 0.5,
+    hint1: '2020s · sci-fi epic',
+    hint2: '2021 · Denis Villeneuve, starring Timothée Chalamet',
+  },
+  {
+    id: 'blair-witch',
+    answer: 'The Blair Witch Project',
+    altAnswers: ['blair witch project', 'blair witch'],
+    year: 1999,
+    review:
+      "90 minutes of shaky camera footage of twigs and people screaming at trees. you don't even see anything.",
+    stars: 0.5,
+    hint1: '1990s · found-footage horror',
+    hint2: '1999 · three film students walk into a forest',
+  },
+  {
+    id: 'groundhog-day',
+    answer: 'Groundhog Day',
+    altAnswers: [],
+    year: 1993,
+    review: 'it is LITERALLY the same thing over and over and over and over again',
+    stars: 0.5,
+    hint1: '1990s · comedy',
+    hint2: '1993 · starring Bill Murray',
+  },
+  {
+    id: 'casablanca',
+    answer: 'Casablanca',
+    altAnswers: [],
+    year: 1942,
+    review: "old people talking in a bar in black and white for two hours. I don't get it.",
+    stars: 0.5,
+    hint1: '1940s · wartime romance',
+    hint2: '1942 · starring Humphrey Bogart and Ingrid Bergman',
+  },
+  {
+    id: 'star-wars',
+    answer: 'Star Wars',
+    altAnswers: [
+      'star wars a new hope',
+      'a new hope',
+      'star wars episode iv a new hope',
+      'star wars episode iv',
+      'star wars episode 4',
+    ],
+    year: 1977,
+    review: 'I guess you had to be there in 1977',
+    stars: 0.5,
+    hint1: '1970s · space opera',
+    hint2: '1977 · directed by George Lucas',
+  },
+  {
+    id: 'wizard-of-oz',
+    answer: 'The Wizard of Oz',
+    altAnswers: ['wizard of oz'],
+    year: 1939,
+    review: 'and then it was ALL A DREAM?? are you kidding me',
+    stars: 0.5,
+    hint1: '1930s · musical fantasy',
+    hint2: '1939 · starring Judy Garland',
+  },
+  {
+    id: 'singin-in-the-rain',
+    answer: "Singin' in the Rain",
+    altAnswers: ['singin in the rain', 'singing in the rain'],
+    year: 1952,
+    review: 'way too much singing for my taste',
+    stars: 0.5,
+    hint1: '1950s · musical',
+    hint2: '1952 · starring Gene Kelly and Debbie Reynolds',
+  },
+  {
+    id: 'jaws',
+    answer: 'Jaws',
+    altAnswers: [],
+    year: 1975,
+    review: "the ████ looks so fake and it's barely even in the movie",
+    stars: 1,
+    hint1: '1970s · thriller',
+    hint2: '1975 · directed by Steven Spielberg',
+  },
+  {
+    id: 'avatar',
+    answer: 'Avatar',
+    altAnswers: [],
+    year: 2009,
+    review: "I've seen this movie twice and I couldn't tell you a single character's name",
+    stars: 1,
+    hint1: '2000s · sci-fi epic',
+    hint2: '2009 · directed by James Cameron',
+  },
+  {
+    id: 'drive',
+    answer: 'Drive',
+    altAnswers: [],
+    year: 2011,
+    review:
+      "he says maybe 20 words in the entire movie and every guy I know calls him 'literally me'",
+    stars: 0.5,
+    hint1: '2010s · neo-noir crime',
+    hint2: '2011 · starring Ryan Gosling and a scorpion jacket',
+  },
+];
