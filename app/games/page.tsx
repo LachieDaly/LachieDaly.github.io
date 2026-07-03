@@ -7,6 +7,13 @@ export const metadata = {
 
 const games = [
   {
+    name: "Reviewd",
+    href: "/games/reviewd",
+    description:
+      "Great movies, terrible reviews. Guess the movie from a scathing Letterboxd review — every wrong guess unlocks an easier one.",
+    tags: ["Movie quiz", "20 rounds"],
+  },
+  {
     name: "Overlap",
     href: "/games/overlap",
     description:
