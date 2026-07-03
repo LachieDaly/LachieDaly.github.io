@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import type { Metadata } from 'next';
 
 type Category = 'movie' | 'game' | 'tv';
 type Phase = 'start' | 'playing' | 'answered' | 'end';
@@ -132,8 +131,14 @@ const CATEGORY_STYLE: Record<Category, string> = {
 
 const TOTAL = 10;
 
+// Fisher-Yates: unbiased, unlike sorting by a random comparator
 function shuffle<T>(arr: T[]): T[] {
-  return [...arr].sort(() => Math.random() - 0.5);
+  const result = [...arr];
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
 }
 
 function buildGame(): RuntimeQuestion[] {
@@ -159,12 +164,14 @@ export default function SoundtrackGuesser() {
   const [questions, setQuestions] = useState<RuntimeQuestion[]>([]);
   const [current, setCurrent] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
+  const [picks, setPicks] = useState<string[]>([]);
   const [score, setScore] = useState(0);
 
   const startGame = useCallback(() => {
     setQuestions(buildGame());
     setCurrent(0);
     setSelected(null);
+    setPicks([]);
     setScore(0);
     setPhase('playing');
   }, []);
@@ -173,6 +180,7 @@ export default function SoundtrackGuesser() {
     (option: string) => {
       if (phase !== 'playing') return;
       setSelected(option);
+      setPicks(p => [...p, option]);
       if (option === questions[current].answer) setScore(s => s + 1);
       setPhase('answered');
     },
@@ -239,6 +247,46 @@ export default function SoundtrackGuesser() {
           <span className="text-4xl text-slate-300 dark:text-slate-600 font-bold">/{TOTAL}</span>
         </div>
 
+        {/* Per-question review */}
+        <div className="space-y-2">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500">
+            Your answers
+          </h2>
+          <ul className="divide-y divide-slate-100 dark:divide-slate-800">
+            {questions.map((q, i) => {
+              const correct = picks[i] === q.answer;
+              return (
+                <li key={q.id} className="flex items-center justify-between gap-4 py-2.5 text-sm">
+                  <div className="min-w-0">
+                    <p className="font-medium text-slate-700 dark:text-slate-300 truncate">
+                      {q.answer}
+                      <span
+                        className={`ml-2 text-xs font-medium px-1.5 py-0.5 rounded-full ${CATEGORY_STYLE[q.category]}`}
+                      >
+                        {CATEGORY_LABEL[q.category]}
+                      </span>
+                    </p>
+                    {!correct && (
+                      <p className="text-xs text-slate-400 dark:text-slate-500">
+                        You picked {picks[i]}
+                      </p>
+                    )}
+                  </div>
+                  <span
+                    className={`shrink-0 font-semibold ${
+                      correct
+                        ? 'text-emerald-600 dark:text-emerald-400'
+                        : 'text-red-500 dark:text-red-400'
+                    }`}
+                  >
+                    {correct ? '✓' : '✗'}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+
         <button
           onClick={startGame}
           className="px-6 py-2.5 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 rounded-lg font-medium hover:opacity-80 transition-opacity"
@@ -275,7 +323,7 @@ export default function SoundtrackGuesser() {
       <div className="h-1 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
         <div
           className="h-full bg-slate-900 dark:bg-slate-100 transition-all duration-300"
-          style={{ width: `${(current / TOTAL) * 100}%` }}
+          style={{ width: `${((current + (isAnswered ? 1 : 0)) / TOTAL) * 100}%` }}
         />
       </div>
 

@@ -13,9 +13,7 @@ export interface PostFrontmatter {
   slug: string;
 }
 
-export interface PostMeta extends PostFrontmatter {
-  // Extends frontmatter with any derived fields if needed in the future
-}
+export type PostMeta = PostFrontmatter;
 
 export interface Post extends PostMeta {
   /** Raw markdown content (everything after the frontmatter block) */

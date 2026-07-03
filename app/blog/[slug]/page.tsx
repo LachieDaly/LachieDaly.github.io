@@ -4,9 +4,9 @@ import { remark } from "remark";
 import remarkHtml from "remark-html";
 import { getAllSlugs, getPostBySlug } from "@/lib/blog";
 
-// Next.js passes params as a plain object for App Router route segments
+// In the App Router (Next 15+), params is a Promise and must be awaited
 interface Props {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 /**
@@ -23,10 +23,11 @@ export async function generateStaticParams() {
  * per slug even though this function and the page component both call it.
  */
 export async function generateMetadata({ params }: Props) {
-  const post = getPostBySlug(params.slug);
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
   if (!post) return {};
   return {
-    title: `${post.title} | Lachlan Daly`,
+    title: post.title,
     description: post.description,
   };
 }
