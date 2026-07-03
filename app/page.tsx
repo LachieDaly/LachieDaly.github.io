@@ -42,9 +42,9 @@ export default function Home() {
 
       {/* Hero */}
       <section>
-        <h2 className="text-3xl font-bold tracking-tight mb-4">
+        <h1 className="text-3xl font-bold tracking-tight mb-4">
           Software engineer building reliable web applications and systems.
-        </h2>
+        </h1>
         <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
           Currently working full-time at{" "}
           <span className="text-slate-900 dark:text-slate-100 font-medium">MoveMeIn</span>,

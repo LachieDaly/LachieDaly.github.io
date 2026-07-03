@@ -2,7 +2,7 @@ import Link from "next/link";
 import { getAllPosts } from "@/lib/blog";
 
 export const metadata = {
-  title: "Blog | Lachlan Daly",
+  title: "Blog",
   description: "Thoughts on software engineering, tooling, and things I'm building.",
 };
 

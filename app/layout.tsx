@@ -3,7 +3,10 @@ import Link from 'next/link';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Lachlan Daly',
+  title: {
+    default: 'Lachlan Daly',
+    template: '%s | Lachlan Daly',
+  },
   description: 'Software Engineer based in Brisbane, Australia.',
 };
 
@@ -31,7 +34,7 @@ export default function RootLayout({
             <Link href="/projects" className="hover:text-slate-900 dark:hover:text-slate-100 transition-colors">
               Projects
             </Link>
-            <Link href="/games/soundtrack" className="hover:text-slate-900 dark:hover:text-slate-100 transition-colors">
+            <Link href="/games" className="hover:text-slate-900 dark:hover:text-slate-100 transition-colors">
               Games
             </Link>
             <Link href="/blog" className="hover:text-slate-900 dark:hover:text-slate-100 transition-colors">
