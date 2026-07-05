@@ -29,7 +29,7 @@ export default function BlogPage() {
                 <Link href={`/blog/${post.slug}`} className="group block">
                   <article>
                     {/* Post title */}
-                    <h2 className="font-semibold text-lg group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors mb-1">
+                    <h2 className="font-semibold text-lg mb-1 transition-colors group-hover:underline decoration-slate-300 dark:decoration-slate-600 underline-offset-4">
                       {post.title}
                     </h2>
 

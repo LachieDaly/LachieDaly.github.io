@@ -52,22 +52,28 @@ export default function Home() {
           Engineering (Honours) in Software Engineering from the University of Queensland.
           Based in Brisbane, Australia.
         </p>
-        <div className="flex gap-4 text-sm">
+        <div className="flex gap-3 text-sm">
           <a
             href="https://github.com/LachieDaly"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-slate-400 dark:hover:border-slate-500 hover:bg-slate-50 dark:hover:bg-slate-900 transition-all"
+            className="group inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-slate-400 dark:hover:border-slate-500 hover:bg-slate-50 dark:hover:bg-slate-900 hover:shadow-sm transition-all"
           >
             GitHub
+            <span aria-hidden="true" className="text-slate-400 dark:text-slate-500 group-hover:text-slate-600 dark:group-hover:text-slate-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all">
+              ↗
+            </span>
           </a>
           <a
             href="https://www.linkedin.com/in/lachlan-daly-a70978217"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-slate-400 dark:hover:border-slate-500 hover:bg-slate-50 dark:hover:bg-slate-900 transition-all"
+            className="group inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-slate-400 dark:hover:border-slate-500 hover:bg-slate-50 dark:hover:bg-slate-900 hover:shadow-sm transition-all"
           >
             LinkedIn
+            <span aria-hidden="true" className="text-slate-400 dark:text-slate-500 group-hover:text-slate-600 dark:group-hover:text-slate-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all">
+              ↗
+            </span>
           </a>
         </div>
       </section>
@@ -77,9 +83,13 @@ export default function Home() {
         <h2 className="text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-6">
           Experience
         </h2>
-        <div className="space-y-8">
+        <div className="space-y-8 border-l-2 border-slate-100 dark:border-slate-800/80">
           {experience.map((job) => (
-            <div key={job.company} className="grid sm:grid-cols-[1fr_auto] gap-x-6">
+            <div key={job.company} className="relative pl-6">
+              <span
+                aria-hidden="true"
+                className="absolute -left-[5px] top-1.5 w-2 h-2 rounded-full bg-slate-300 dark:bg-slate-600 ring-4 ring-white dark:ring-slate-950"
+              />
               <div>
                 <div className="flex items-baseline gap-2 mb-1">
                   <h3 className="font-semibold">{job.company}</h3>
