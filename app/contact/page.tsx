@@ -4,7 +4,7 @@ export const metadata = {
 };
 
 const linkCardClass =
-  "flex items-center justify-between group px-4 py-3 rounded-md border border-slate-200 dark:border-slate-700 hover:border-slate-400 dark:hover:border-slate-500 hover:bg-slate-50 dark:hover:bg-slate-900 transition-all";
+  "flex items-center justify-between group px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-slate-400 dark:hover:border-slate-500 hover:bg-slate-50 dark:hover:bg-slate-900 hover:shadow-sm transition-all";
 
 export default function ContactPage() {
   return (
@@ -34,7 +34,7 @@ export default function ContactPage() {
                 lachiedaly@gmail.com
               </p>
             </div>
-            <span className="text-slate-400 dark:text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors text-sm">
+            <span className="text-slate-400 dark:text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300 group-hover:translate-x-0.5 transition-all text-sm">
               →
             </span>
           </a>
@@ -53,7 +53,7 @@ export default function ContactPage() {
                 github.com/LachieDaly
               </p>
             </div>
-            <span className="text-slate-400 dark:text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors text-sm">
+            <span className="text-slate-400 dark:text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300 group-hover:translate-x-0.5 transition-all text-sm">
               →
             </span>
           </a>
@@ -72,7 +72,7 @@ export default function ContactPage() {
                 linkedin.com/in/lachlan-daly-a70978217
               </p>
             </div>
-            <span className="text-slate-400 dark:text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors text-sm">
+            <span className="text-slate-400 dark:text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300 group-hover:translate-x-0.5 transition-all text-sm">
               →
             </span>
           </a>
