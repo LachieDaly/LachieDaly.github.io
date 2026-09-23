@@ -1,6 +1,10 @@
+export type BingoKind = "book" | "movie";
+
 export interface BingoBoard {
   /** Used in the URL (/bingo/[slug]) and as the localStorage key */
   slug: string;
+  /** What gets logged against each prompt — drives copy, colours, and extras */
+  kind: BingoKind;
   title: string;
   description: string;
   /** The card is a size × size grid */
@@ -19,6 +23,7 @@ export interface BingoBoard {
 export const BINGO_BOARDS: BingoBoard[] = [
   {
     slug: "spring-summer-2026",
+    kind: "book",
     title: "Spring/Summer Reading List",
     description:
       "Book bingo: 25 prompts, one book each. Cross them off as you read.",
@@ -55,6 +60,38 @@ export const BINGO_BOARDS: BingoBoard[] = [
       "Share recommendations with your team",
       "Keep track (for checking purposes)",
       "Bonus points for watching the movie adaptation",
+    ],
+  },
+  {
+    slug: "movie-marathon-2026",
+    kind: "movie",
+    title: "Summer Movie Marathon",
+    description:
+      "Movie bingo: 16 prompts on a 4 × 4 card. Log each film and give it a star rating.",
+    size: 4,
+    prompts: [
+      "Won Best Picture",
+      "Not in English",
+      "Released before you were born",
+      "Under 90 minutes",
+      "Directed by a woman",
+      "Animated",
+      "Watched at the cinema",
+      "Based on a true story",
+      "Set in space",
+      "A musical",
+      "Over 2½ hours long",
+      "Scared you",
+      "Australian made",
+      "A parent's favourite",
+      "Black and white",
+      "Rewatch of a childhood favourite",
+    ],
+    rules: [
+      "One film per prompt — no double-dipping",
+      "Must be watched this summer, start to finish",
+      "Stuck? Hit “Pick for me” and let fate decide",
+      "Bonus points if you read the book first",
     ],
   },
 ];
