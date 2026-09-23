@@ -14,7 +14,7 @@ function subscribeToStorage(cb: () => void) {
 function getStorageSnapshot(): string {
   try {
     return JSON.stringify(
-      BINGO_BOARDS.map((board) => localStorage.getItem(storageKey(board.slug))),
+      BINGO_BOARDS.map((board) => localStorage.getItem(storageKey(board))),
     );
   } catch {
     return "[]";
@@ -58,8 +58,8 @@ export default function BingoPage() {
       <section>
         <h1 className="text-3xl font-bold tracking-tight mb-3">Bingo</h1>
         <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-          Reading challenge bingo cards. Cross off prompts as you go — progress
-          is saved in your browser.
+          Reading and movie challenge bingo cards. Cross off prompts as you go —
+          progress is saved in your browser.
         </p>
       </section>
 
@@ -85,6 +85,9 @@ export default function BingoPage() {
                   </p>
                   <div className="flex flex-wrap gap-2">
                     <span className="text-xs px-2 py-0.5 rounded-full border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400">
+                      {board.kind === "movie" ? "🎬 Movies" : "📚 Books"}
+                    </span>
+                    <span className="text-xs px-2 py-0.5 rounded-full border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400">
                       {board.size} × {board.size}
                     </span>
                     {done !== undefined && (
@@ -95,7 +98,7 @@ export default function BingoPage() {
                             : "border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400"
                         }`}
                       >
-                        {done === total ? "Complete! 🎉" : `${done} / ${total} crossed off`}
+                        {done === total ? "Complete! 🎉" : `${done} / ${total} ${board.kind === "movie" ? "watched" : "crossed off"}`}
                       </span>
                     )}
                   </div>
