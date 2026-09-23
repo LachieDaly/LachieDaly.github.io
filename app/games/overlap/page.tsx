@@ -227,7 +227,7 @@ export default function OverlapGame() {
           <h2 className="text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-4">
             Choose a puzzle
           </h2>
-          <div className="grid grid-cols-5 gap-2">
+          <div className="grid grid-cols-5 sm:grid-cols-10 gap-2">
             {PUZZLES.map(p => {
               const done = completed.includes(p.id);
               return (

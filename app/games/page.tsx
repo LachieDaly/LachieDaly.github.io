@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PUZZLES as OVERLAP_PUZZLES } from "./overlap/puzzles";
 
 export const metadata = {
   title: "Games",
@@ -17,8 +18,8 @@ const games = [
     name: "Overlap",
     href: "/games/overlap",
     description:
-      "Nine words, four categories of three — but one hidden word belongs to all four. 20 puzzles to crack.",
-    tags: ["Word puzzle", "20 puzzles"],
+      `Nine words, four categories of three — but one hidden word belongs to all four. ${OVERLAP_PUZZLES.length} puzzles to crack.`,
+    tags: ["Word puzzle", `${OVERLAP_PUZZLES.length} puzzles`],
   },
   {
     name: "Soundtrack Guesser",
