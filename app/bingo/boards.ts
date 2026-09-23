@@ -67,8 +67,8 @@ export const BINGO_BOARDS: BingoBoard[] = [
     kind: "movie",
     title: "Summer Movie Marathon",
     description:
-      "Movie bingo: 16 prompts on a 4 × 4 card. Log each film and give it a star rating.",
-    size: 4,
+      "Movie bingo: 25 prompts on a 5 × 5 card. Log each film and give it a star rating.",
+    size: 5,
     prompts: [
       "Won Best Picture",
       "Not in English",
@@ -86,6 +86,17 @@ export const BINGO_BOARDS: BingoBoard[] = [
       "A parent's favourite",
       "Black and white",
       "Rewatch of a childhood favourite",
+      // Added when the card grew to 5 × 5. New prompts go on the end so saved
+      // progress (keyed by prompt index) still points at the same prompts.
+      "Released in 2026",
+      "A sequel",
+      "Documentary",
+      "Made you cry",
+      "Set in summer",
+      "Number in the title",
+      "A heist",
+      "Picked by someone else",
+      "Iconic soundtrack",
     ],
     rules: [
       "One film per prompt — no double-dipping",
