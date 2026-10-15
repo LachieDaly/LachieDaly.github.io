@@ -7,7 +7,7 @@ const projects = [
   {
     name: "LachieDaly.github.io",
     description:
-      "This site — a personal portfolio and blog built with Next.js and Tailwind CSS, statically exported and hosted on GitHub Pages.",
+      "This site — a personal portfolio built with Next.js and Tailwind CSS, statically exported and hosted on GitHub Pages.",
     tags: ["Next.js", "TypeScript", "Tailwind CSS"],
     github: "https://github.com/LachieDaly/LachieDaly.github.io",
     url: "https://lachiedaly.github.io",
