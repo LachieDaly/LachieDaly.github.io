@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { PUZZLES as OVERLAP_PUZZLES } from "./overlap/puzzles";
+import { PUZZLES as OVERLAP_HARD_PUZZLES } from "./overlap-hard/puzzles";
 
 export const metadata = {
   title: "Games",
@@ -20,6 +21,13 @@ const games = [
     description:
       `Nine words, four categories of three — but one hidden word belongs to all four. ${OVERLAP_PUZZLES.length} puzzles to crack.`,
     tags: ["Word puzzle", `${OVERLAP_PUZZLES.length} puzzles`],
+  },
+  {
+    name: "Overlap Hard",
+    href: "/games/overlap-hard",
+    description:
+      `Overlap with the gloves off: sixteen words, four categories of four, one hidden word in all four — and three red herrings that fit nowhere. ${OVERLAP_HARD_PUZZLES.length} puzzles, three mistakes.`,
+    tags: ["Word puzzle", "Hard", `${OVERLAP_HARD_PUZZLES.length} puzzles`],
   },
   {
     name: "Soundtrack Guesser",
