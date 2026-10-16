@@ -3,35 +3,21 @@
 import Link from 'next/link';
 import { useCallback, useMemo, useState, useSyncExternalStore } from 'react';
 import { PUZZLES, type OverlapPuzzle } from './puzzles';
+import {
+  BASE_POINTS,
+  DIFFICULTY_COLORS,
+  DIFFICULTY_LABELS,
+  MAX_SCORE,
+  categoryPoints,
+  difficultyColor,
+  orderMultiplier,
+  tileBackground,
+  totalScore,
+  type Difficulty,
+} from './scoring';
 
 const MAX_MISTAKES = 4;
 const STORAGE_KEY = 'overlap-completed-v1';
-
-/**
- * One colour per category, assigned by solve order.
- * `chip` styles the solved-category pills; `tile` is a translucent colour that
- * reads well on both light and dark tile backgrounds, so tiles can blend
- * multiple category colours with a gradient when a word sits in several
- * solved categories.
- */
-const CATEGORY_COLORS = [
-  {
-    chip: 'bg-amber-100 dark:bg-amber-900/40 text-amber-900 dark:text-amber-200',
-    tile: 'rgba(245, 158, 11, 0.35)',
-  },
-  {
-    chip: 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-900 dark:text-emerald-200',
-    tile: 'rgba(16, 185, 129, 0.35)',
-  },
-  {
-    chip: 'bg-blue-100 dark:bg-blue-900/40 text-blue-900 dark:text-blue-200',
-    tile: 'rgba(59, 130, 246, 0.35)',
-  },
-  {
-    chip: 'bg-purple-100 dark:bg-purple-900/40 text-purple-900 dark:text-purple-200',
-    tile: 'rgba(168, 85, 247, 0.35)',
-  },
-];
 
 type Status = 'active' | 'won' | 'lost';
 
@@ -55,17 +41,6 @@ function categoryWords(puzzle: OverlapPuzzle, index: number): string[] {
 
 function sameSet(a: string[], b: string[]): boolean {
   return a.length === b.length && a.every(w => b.includes(w));
-}
-
-/** Blend one or more category colours into a tile background. */
-function tileBackground(orders: number[]): string {
-  if (orders.length === 1) return CATEGORY_COLORS[orders[0]].tile;
-  const stops = orders.map((order, i) => {
-    const from = (i / orders.length) * 100;
-    const to = ((i + 1) / orders.length) * 100;
-    return `${CATEGORY_COLORS[order].tile} ${from}% ${to}%`;
-  });
-  return `linear-gradient(135deg, ${stops.join(', ')})`;
 }
 
 /**
@@ -177,12 +152,13 @@ export default function OverlapGame() {
       // Every tile stays on the board so the shared word isn't given away —
       // the whole guess is tinted with the category's colour instead
       setSelected([]);
+      const points = categoryPoints(puzzle.categories[matchIndex].difficulty, solved.length);
       if (nextSolved.length === puzzle.categories.length) {
         setStatus('won');
         setMessage(null);
         markCompleted(puzzle.id);
       } else {
-        setMessage('Correct!');
+        setMessage(`Correct! +${points}`);
       }
       return;
     }
@@ -222,6 +198,19 @@ export default function OverlapGame() {
           <li>Every word stays on the board — solved categories are tinted a colour</li>
           <li>One hidden word completes all four categories, so you&apos;ll reuse it every time</li>
           <li>You can make {MAX_MISTAKES} mistakes before the game ends</li>
+          <li>
+            Each category has a difficulty, from{' '}
+            <span className="inline-flex items-center gap-1 align-middle">
+              {DIFFICULTY_COLORS.map((c, i) => (
+                <span key={i} className={`inline-block w-2.5 h-2.5 rounded-sm ${c.dot}`} />
+              ))}
+            </span>{' '}
+            yellow (easiest) to purple (hardest)
+          </li>
+          <li>
+            Harder categories score more, and earlier solves are multiplied (×4, ×3, ×2, ×1) —
+            solve hardest to easiest for the top score of {MAX_SCORE}
+          </li>
         </ul>
 
         <div>
@@ -268,13 +257,15 @@ export default function OverlapGame() {
   const nextPuzzle = PUZZLES.find(p => p.id > puzzle.id && !completed.includes(p.id)) ??
     PUZZLES.find(p => !completed.includes(p.id) && p.id !== puzzle.id);
 
-  // Solve order (0-3) of every solved category a word belongs to.
+  // Difficulty of every solved category a word belongs to, in solve order.
   // The overlap word accumulates a colour per solved category — but only once
   // it has been part of a correct guess, so it's never singled out early.
-  const solveOrdersFor = (word: string): number[] =>
+  const solvedDifficultiesFor = (word: string): Difficulty[] =>
     solved
-      .map((catIndex, order) => (categoryWords(puzzle, catIndex).includes(word) ? order : -1))
-      .filter(order => order !== -1);
+      .filter(catIndex => categoryWords(puzzle, catIndex).includes(word))
+      .map(catIndex => puzzle.categories[catIndex].difficulty);
+
+  const score = totalScore(solved.map(catIndex => puzzle.categories[catIndex].difficulty));
 
   return (
     <div className="space-y-5">
@@ -286,6 +277,9 @@ export default function OverlapGame() {
             #{puzzle.id}
           </span>
         </div>
+        <span className="text-sm font-semibold tabular-nums" aria-label={`Score ${score}`}>
+          {score} pts
+        </span>
         <button
           onClick={backToPicker}
           className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors"
@@ -298,10 +292,10 @@ export default function OverlapGame() {
           gives away which of the three words is the shared one */}
       {solved.length > 0 && status === 'active' && (
         <div className="flex flex-wrap gap-2">
-          {solved.map((catIndex, order) => (
+          {solved.map(catIndex => (
             <span
               key={puzzle.categories[catIndex].name}
-              className={`text-xs font-semibold px-3 py-1.5 rounded-full ${CATEGORY_COLORS[order].chip}`}
+              className={`text-xs font-semibold px-3 py-1.5 rounded-full ${difficultyColor(puzzle.categories[catIndex].difficulty).chip}`}
             >
               {puzzle.categories[catIndex].name}
             </span>
@@ -314,14 +308,14 @@ export default function OverlapGame() {
       <div className="grid grid-cols-3 gap-2">
         {tiles.map(word => {
           const isSelected = selected.includes(word);
-          const orders = solveOrdersFor(word);
-          const tinted = orders.length > 0 && !isSelected;
+          const difficulties = solvedDifficultiesFor(word);
+          const tinted = difficulties.length > 0 && !isSelected;
           return (
             <button
               key={word}
               onClick={() => toggleWord(word)}
               disabled={finished}
-              style={tinted ? { background: tileBackground(orders) } : undefined}
+              style={tinted ? { background: tileBackground(difficulties) } : undefined}
               className={`min-h-16 px-1 py-2 rounded-lg text-xs sm:text-sm font-semibold uppercase tracking-wide break-words transition-all ${
                 isSelected
                   ? 'bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 scale-[0.97]'
@@ -385,15 +379,22 @@ export default function OverlapGame() {
       {/* Full reveal once the game is over — safe to name the overlap word now */}
       {finished && (
         <div className="space-y-2">
-          {solved.map((catIndex, order) => (
-            <div
-              key={puzzle.categories[catIndex].name}
-              className={`rounded-lg px-4 py-2.5 text-center ${CATEGORY_COLORS[order].chip}`}
-            >
-              <p className="text-sm font-bold">{puzzle.categories[catIndex].name}</p>
-              <p className="text-xs">{categoryWords(puzzle, catIndex).join(' · ')}</p>
-            </div>
-          ))}
+          {solved.map((catIndex, order) => {
+            const { name, difficulty } = puzzle.categories[catIndex];
+            return (
+              <div
+                key={name}
+                className={`rounded-lg px-4 py-2.5 text-center ${difficultyColor(difficulty).chip}`}
+              >
+                <p className="text-sm font-bold">{name}</p>
+                <p className="text-xs">{categoryWords(puzzle, catIndex).join(' · ')}</p>
+                <p className="text-[11px] mt-1 opacity-75 tabular-nums">
+                  {DIFFICULTY_LABELS[difficulty]} · {BASE_POINTS[difficulty]} × {orderMultiplier(order)} = +
+                  {categoryPoints(difficulty, order)}
+                </p>
+              </div>
+            );
+          })}
           {puzzle.categories.map((cat, i) =>
             solved.includes(i) ? null : (
               <div
@@ -402,6 +403,10 @@ export default function OverlapGame() {
               >
                 <p className="text-sm font-bold">{cat.name}</p>
                 <p className="text-xs">{categoryWords(puzzle, i).join(' · ')}</p>
+                <p className="text-[11px] mt-1 opacity-75 inline-flex items-center gap-1.5">
+                  <span className={`inline-block w-2 h-2 rounded-sm ${difficultyColor(cat.difficulty).dot}`} />
+                  {DIFFICULTY_LABELS[cat.difficulty]} · not solved
+                </p>
               </div>
             ),
           )}
@@ -416,7 +421,11 @@ export default function OverlapGame() {
             <span className="text-emerald-600 dark:text-emerald-400">{puzzle.wildcard}</span> —
             one word in all four categories.
           </p>
+          <p className="text-2xl font-bold tabular-nums">
+            {score} <span className="text-base font-medium text-slate-400 dark:text-slate-500">/ {MAX_SCORE} pts</span>
+          </p>
           <p className="text-sm text-slate-500 dark:text-slate-400 tabular-nums">
+            {score === MAX_SCORE && 'Hardest to easiest — top score! '}
             {mistakes === 0 ? 'A perfect game — no mistakes.' : `Finished with ${mistakes} mistake${mistakes === 1 ? '' : 's'}.`}
           </p>
           <div className="flex justify-center gap-2">
@@ -443,6 +452,9 @@ export default function OverlapGame() {
         <div className="space-y-4">
           <p className="text-center font-semibold text-red-500 dark:text-red-400">
             Out of guesses!
+          </p>
+          <p className="text-sm text-center font-semibold tabular-nums">
+            {score} / {MAX_SCORE} pts
           </p>
           <p className="text-sm text-center text-slate-500 dark:text-slate-400">
             The overlap word was{' '}
