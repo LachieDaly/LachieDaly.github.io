@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useCallback, useMemo, useState, useSyncExternalStore } from 'react';
 import { PUZZLES, type OverlapPuzzle } from './puzzles';
 
@@ -248,6 +249,13 @@ export default function OverlapGame() {
           </div>
           <p className="mt-3 text-xs text-slate-400 dark:text-slate-500">
             {completed.length} of {PUZZLES.length} solved · progress saved in your browser
+          </p>
+          <p className="mt-6 text-sm text-slate-500 dark:text-slate-400">
+            Too easy?{' '}
+            <Link href="/games/overlap-hard" className="underline underline-offset-2 hover:text-slate-900 dark:hover:text-slate-100">
+              Try Overlap Hard
+            </Link>{' '}
+            — groups of four, plus red herrings.
           </p>
         </div>
       </div>
