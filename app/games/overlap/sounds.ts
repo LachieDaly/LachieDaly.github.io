@@ -82,6 +82,13 @@ export const sounds = {
       { freq: 185, at: 0.16, duration: 0.3, type: 'square', volume: 0.06, slideTo: 146.83 },
     ]);
   },
+  /** Guessed a red herring: two bubbly "blub"s gliding upward — fishy, not buzzy */
+  herring() {
+    play([
+      { freq: 260, at: 0, duration: 0.11, type: 'sine', volume: 0.22, slideTo: 520 },
+      { freq: 330, at: 0.12, duration: 0.13, type: 'sine', volume: 0.22, slideTo: 700 },
+    ]);
+  },
   /** Puzzle complete: short fanfare finishing on a held chord */
   win() {
     play([
