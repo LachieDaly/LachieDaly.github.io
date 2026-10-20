@@ -95,6 +95,8 @@ export default function OverlapHardGame() {
   const [solved, setSolved] = useState<number[]>([]);
   const [mistakes, setMistakes] = useState(0);
   const [guessed, setGuessed] = useState<string[]>([]);
+  // Decoys caught in a wrong guess — shown red and locked for the rest of the game
+  const [herrings, setHerrings] = useState<string[]>([]);
   const [message, setMessage] = useState<string | null>(null);
   const [status, setStatus] = useState<Status>('active');
 
@@ -119,6 +121,7 @@ export default function OverlapHardGame() {
     setSolved([]);
     setMistakes(0);
     setGuessed([]);
+    setHerrings([]);
     setMessage(null);
     setStatus('active');
   }, []);
@@ -127,7 +130,7 @@ export default function OverlapHardGame() {
 
   const toggleWord = useCallback(
     (word: string) => {
-      if (status !== 'active') return;
+      if (status !== 'active' || herrings.includes(word)) return;
       setMessage(null);
       if (selected.includes(word)) {
         setSelected(selected.filter(w => w !== word));
@@ -139,7 +142,7 @@ export default function OverlapHardGame() {
       // Pitch rises with each word selected
       sounds.select(next.length);
     },
-    [status, selected],
+    [status, selected, herrings],
   );
 
   const submitGuess = useCallback(() => {
@@ -182,13 +185,23 @@ export default function OverlapHardGame() {
         selected.filter(w => categoryWords(puzzle, i).includes(w)).length === GROUP_SIZE - 1,
     );
 
+    // Any decoys in a wrong guess are revealed and locked; the guess still costs a life
+    const caught = selected.filter(w => puzzle.decoys.includes(w));
+
     const nextMistakes = mistakes + 1;
     setMistakes(nextMistakes);
     setSelected([]);
-    sounds.wrong();
+    if (caught.length > 0) {
+      setHerrings(prev => [...prev, ...caught]);
+      sounds.herring();
+    } else {
+      sounds.wrong();
+    }
     if (nextMistakes >= MAX_MISTAKES) {
       setStatus('lost');
       setMessage(null);
+    } else if (caught.length > 0) {
+      setMessage(caught.length > 1 ? `${caught.length} red herrings!` : 'Red herring!');
     } else {
       setMessage(oneAway ? 'One away!' : 'Not a group.');
     }
@@ -219,6 +232,7 @@ export default function OverlapHardGame() {
           <li>Every word stays on the board — solved categories are tinted a colour</li>
           <li>One hidden word completes all four categories, so you&apos;ll reuse it every time</li>
           <li>Three decoys fit no category at all — they&apos;re left over when you finish</li>
+          <li>Guess a decoy and it&apos;s caught as a red herring: it turns red and can&apos;t be picked again, but the guess still counts as a mistake</li>
           <li>You can make {MAX_MISTAKES} mistakes before the game ends</li>
           <li>
             Each category has a difficulty, from{' '}
@@ -326,16 +340,20 @@ export default function OverlapHardGame() {
       <div className="grid grid-cols-4 gap-1.5 sm:gap-2">
         {tiles.map(word => {
           const isSelected = selected.includes(word);
+          const isHerring = herrings.includes(word);
           const difficulties = solvedDifficultiesFor(word);
           const tinted = difficulties.length > 0 && !isSelected;
           return (
             <button
               key={word}
               onClick={() => toggleWord(word)}
-              disabled={finished}
-              style={tinted ? { background: tileBackground(difficulties) } : undefined}
+              disabled={finished || isHerring}
+              aria-label={isHerring ? `${word} (red herring)` : undefined}
+              style={tinted && !isHerring ? { background: tileBackground(difficulties) } : undefined}
               className={`min-h-16 px-1 py-2 rounded-lg text-[11px] sm:text-sm font-semibold uppercase sm:tracking-wide break-words transition-all ${
-                isSelected
+                isHerring
+                  ? 'bg-red-500 dark:bg-red-600 text-white line-through decoration-2 cursor-not-allowed'
+                  : isSelected
                   ? 'bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 scale-[0.97]'
                   : tinted
                     ? 'text-slate-900 dark:text-slate-100 hover:opacity-80'
