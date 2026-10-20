@@ -15,6 +15,9 @@ import {
   totalScore,
   type Difficulty,
 } from './scoring';
+import { sounds } from './sounds';
+import Confetti from './confetti';
+import MuteButton from './mute-button';
 
 const MAX_MISTAKES = 4;
 const STORAGE_KEY = 'overlap-completed-v1';
@@ -125,11 +128,17 @@ export default function OverlapGame() {
     (word: string) => {
       if (status !== 'active') return;
       setMessage(null);
-      setSelected(prev =>
-        prev.includes(word) ? prev.filter(w => w !== word) : prev.length < 3 ? [...prev, word] : prev,
-      );
+      if (selected.includes(word)) {
+        setSelected(selected.filter(w => w !== word));
+        return;
+      }
+      if (selected.length >= 3) return;
+      const next = [...selected, word];
+      setSelected(next);
+      // Pitch rises with each word selected
+      sounds.select(next.length);
     },
-    [status],
+    [status, selected],
   );
 
   const submitGuess = useCallback(() => {
@@ -157,8 +166,10 @@ export default function OverlapGame() {
         setStatus('won');
         setMessage(null);
         markCompleted(puzzle.id);
+        sounds.win();
       } else {
         setMessage(`Correct! +${points}`);
+        sounds.correct();
       }
       return;
     }
@@ -173,6 +184,7 @@ export default function OverlapGame() {
     const nextMistakes = mistakes + 1;
     setMistakes(nextMistakes);
     setSelected([]);
+    sounds.wrong();
     if (nextMistakes >= MAX_MISTAKES) {
       setStatus('lost');
       setMessage(null);
@@ -187,7 +199,10 @@ export default function OverlapGame() {
     return (
       <div className="space-y-8">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight mb-2">Overlap</h1>
+          <div className="flex items-center justify-between mb-2">
+            <h1 className="text-2xl font-bold tracking-tight">Overlap</h1>
+            <MuteButton />
+          </div>
           <p className="text-slate-500 dark:text-slate-400">
             Nine words, four categories of three — but one sneaky word belongs to all four.
           </p>
@@ -280,12 +295,15 @@ export default function OverlapGame() {
         <span className="text-sm font-semibold tabular-nums" aria-label={`Score ${score}`}>
           {score} pts
         </span>
-        <button
-          onClick={backToPicker}
-          className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors"
-        >
-          ← All puzzles
-        </button>
+        <div className="flex items-center gap-2">
+          <MuteButton />
+          <button
+            onClick={backToPicker}
+            className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors"
+          >
+            ← All puzzles
+          </button>
+        </div>
       </div>
 
       {/* Solved category chips — names only while playing, so the board never
@@ -414,6 +432,7 @@ export default function OverlapGame() {
       )}
 
       {/* Won */}
+      {status === 'won' && <Confetti key={puzzle.id} />}
       {status === 'won' && (
         <div className="space-y-4 text-center py-4">
           <p className="text-lg font-bold">
