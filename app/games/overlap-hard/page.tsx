@@ -15,6 +15,9 @@ import {
   totalScore,
   type Difficulty,
 } from '../overlap/scoring';
+import { sounds } from '../overlap/sounds';
+import Confetti from '../overlap/confetti';
+import MuteButton from '../overlap/mute-button';
 
 const MAX_MISTAKES = 3;
 const GROUP_SIZE = 4;
@@ -126,11 +129,17 @@ export default function OverlapHardGame() {
     (word: string) => {
       if (status !== 'active') return;
       setMessage(null);
-      setSelected(prev =>
-        prev.includes(word) ? prev.filter(w => w !== word) : prev.length < GROUP_SIZE ? [...prev, word] : prev,
-      );
+      if (selected.includes(word)) {
+        setSelected(selected.filter(w => w !== word));
+        return;
+      }
+      if (selected.length >= GROUP_SIZE) return;
+      const next = [...selected, word];
+      setSelected(next);
+      // Pitch rises with each word selected
+      sounds.select(next.length);
     },
-    [status],
+    [status, selected],
   );
 
   const submitGuess = useCallback(() => {
@@ -158,8 +167,10 @@ export default function OverlapHardGame() {
         setStatus('won');
         setMessage(null);
         markCompleted(puzzle.id);
+        sounds.win();
       } else {
         setMessage(`Correct! +${points}`);
+        sounds.correct();
       }
       return;
     }
@@ -174,6 +185,7 @@ export default function OverlapHardGame() {
     const nextMistakes = mistakes + 1;
     setMistakes(nextMistakes);
     setSelected([]);
+    sounds.wrong();
     if (nextMistakes >= MAX_MISTAKES) {
       setStatus('lost');
       setMessage(null);
@@ -188,7 +200,10 @@ export default function OverlapHardGame() {
     return (
       <div className="space-y-8">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight mb-2">Overlap Hard</h1>
+          <div className="flex items-center justify-between mb-2">
+            <h1 className="text-2xl font-bold tracking-tight">Overlap Hard</h1>
+            <MuteButton />
+          </div>
           <p className="text-slate-500 dark:text-slate-400">
             Sixteen words, four categories of four — one sneaky word belongs to all four, and
             three red herrings belong to none. Looking for something gentler? Try{' '}
@@ -280,12 +295,15 @@ export default function OverlapHardGame() {
         <span className="text-sm font-semibold tabular-nums" aria-label={`Score ${score}`}>
           {score} pts
         </span>
-        <button
-          onClick={backToPicker}
-          className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors"
-        >
-          ← All puzzles
-        </button>
+        <div className="flex items-center gap-2">
+          <MuteButton />
+          <button
+            onClick={backToPicker}
+            className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors"
+          >
+            ← All puzzles
+          </button>
+        </div>
       </div>
 
       {/* Solved category chips — names only while playing, so the board never
@@ -418,6 +436,7 @@ export default function OverlapHardGame() {
       )}
 
       {/* Won */}
+      {status === 'won' && <Confetti key={puzzle.id} />}
       {status === 'won' && (
         <div className="space-y-4 text-center py-4">
           <p className="text-lg font-bold">
