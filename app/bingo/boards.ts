@@ -13,6 +13,15 @@ export interface BingoBoard {
   prompts: string[];
   /** Optional rules shown under the card */
   rules?: string[];
+  /** My own entries so far, shown as a short list at the bottom of the board */
+  myEntries?: BingoEntry[];
+}
+
+export interface BingoEntry {
+  /** Must match one of the board's prompts */
+  prompt: string;
+  title: string;
+  note: string;
 }
 
 /**
@@ -101,6 +110,63 @@ export const BINGO_BOARDS: BingoBoard[] = [
       "Must be watched this summer, start to finish",
       "Stuck? Hit “Pick for me” and let fate decide",
       "Bonus points if you read the book first",
+    ],
+    myEntries: [
+      {
+        prompt: "Won Best Picture",
+        title: "The Departed",
+        note: "Solid crime movie, wish I didn't spoil myself many years ago watching WatchMojo on YouTube.",
+      },
+      {
+        prompt: "Not in English",
+        title: "Run Lola Run",
+        note: "Had never heard of it, enjoyed the weirdness, the Germanness, and the music.",
+      },
+      {
+        prompt: "A sequel",
+        title: "Scooby-Doo 2: Monsters Unleashed",
+        note: "Arguably better than the original live action, but the first is the one we had on DVD and it has a soft spot in my heart.",
+      },
+      {
+        prompt: "Released in 2026",
+        title: "Sheep Detectives",
+        note: "Happy for the neighbour's sheep in the end.",
+      },
+      {
+        prompt: "Made you cry",
+        title: "Arrival",
+        note: "Got chills with the twist.",
+      },
+      {
+        prompt: "FREE CHOICE",
+        title: "Over Your Dead Body",
+        note: "It was dumb fun, interesting concept.",
+      },
+      {
+        prompt: "Over 2½ hours long",
+        title: "The Godfather",
+        note: "Just solid. The tension of the restaurant scene and the juxtaposition in the baptism scene were great.",
+      },
+      {
+        prompt: "Scared you",
+        title: "Nightcrawler",
+        note: "Skin crawler, what a scary main character.",
+      },
+      {
+        prompt: "Black and white",
+        title: "Casablanca",
+        note: "Here's looking at you, kid. Never knew what the movie was about, I feel better having watched it.",
+      },
+      {
+        prompt: "Picked by someone else",
+        title: "The Get Out",
+        note: "Weird tone shifts in this one, it was alright.",
+      },
+      {
+        prompt: "Rewatch of a childhood favourite",
+        title: "Scooby-Doo",
+        note: "Good memories.",
+      },
     ],
   },
 ];
