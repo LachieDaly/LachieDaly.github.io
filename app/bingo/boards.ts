@@ -159,7 +159,7 @@ export const BINGO_BOARDS: BingoBoard[] = [
       },
       {
         prompt: "Picked by someone else",
-        title: "Get Out",
+        title: "The Get Out",
         note: "Weird tone shifts in this one, it was alright.",
       },
       {
