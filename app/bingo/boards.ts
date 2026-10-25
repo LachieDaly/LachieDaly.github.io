@@ -70,6 +70,23 @@ export const BINGO_BOARDS: BingoBoard[] = [
       "Keep track (for checking purposes)",
       "Bonus points for watching the movie adaptation",
     ],
+    myEntries: [
+      {
+        prompt: "Solves a mystery",
+        title: "The Thursday Murder Club",
+        note: "Enjoyed the geriatric murder mystery and the actual explanation.",
+      },
+      {
+        prompt: "Classic",
+        title: "Watchmen",
+        note: "Gotta start with the best (first comic read).",
+      },
+      {
+        prompt: "Out of this world",
+        title: "Red Rising",
+        note: "The review said a mix of The Hunger Games and Ender's Game, and I tend to agree. Enjoyed.",
+      },
+    ],
   },
   {
     slug: "movie-marathon-2026",
