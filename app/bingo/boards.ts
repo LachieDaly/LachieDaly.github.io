@@ -33,7 +33,7 @@ export const BINGO_BOARDS: BingoBoard[] = [
   {
     slug: "spring-summer-2026",
     kind: "book",
-    title: "Spring/Summer Reading List",
+    title: "Spring/Summer Reading List 2026",
     description:
       "Book bingo: 25 prompts, one book each. Cross them off as you read.",
     size: 5,
@@ -91,7 +91,7 @@ export const BINGO_BOARDS: BingoBoard[] = [
   {
     slug: "movie-marathon-2026",
     kind: "movie",
-    title: "Summer Movie Marathon",
+    title: "Summer Movie Marathon 2026",
     description:
       "Movie bingo: 25 prompts on a 5 × 5 card. Log each film and give it a star rating.",
     size: 5,
