@@ -400,6 +400,28 @@ export default function BoardView({ board }: { board: BingoBoard }) {
         </section>
       )}
 
+      {/* My entries so far */}
+      {board.myEntries && board.myEntries.length > 0 && (
+        <section className="text-sm">
+          <h2 className="font-medium text-slate-700 dark:text-slate-300 mb-3">
+            My {board.kind === "movie" ? "picks" : "reads"} so far
+          </h2>
+          <ul className="space-y-3">
+            {board.myEntries.map((entry) => (
+              <li key={entry.prompt}>
+                <span className={kind.entryText}>{entry.title}</span>
+                <span className="text-slate-400 dark:text-slate-500">
+                  {" "}· {entry.prompt}
+                </span>
+                <p className="text-slate-500 dark:text-slate-400 leading-relaxed">
+                  {entry.note}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       <footer className="pt-8 border-t border-slate-200 dark:border-slate-800">
         <Link
           href="/bingo"
